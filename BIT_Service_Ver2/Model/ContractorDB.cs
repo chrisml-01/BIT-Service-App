@@ -1,0 +1,154 @@
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BIT_Service_Ver2.Model
+{
+    class ContractorDB
+    {
+        private static SQLHelper _DB = new SQLHelper("bitconnString");
+
+        //Get all Contractor Details
+        public static ObservableCollection<Contractor> GetAllContractors()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["bitconnString"].ConnectionString;
+
+            MySqlConnection myConn = new MySqlConnection(connectionString);
+
+            string strQuery = "select contractorId, FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password from Contractor";
+            MySqlCommand cmd = new MySqlCommand(strQuery, myConn);
+
+            DataTable dt = new DataTable();
+            MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
+            adap.Fill(dt);
+
+            var temp = new ObservableCollection<Contractor>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Contractor contractor = new Contractor()
+                {
+                    contractorID = Convert.ToInt32(dr[0]),
+                    FirstName = dr[1].ToString(),
+                    SurName = dr[2].ToString(),
+                    DOB = (DateTime)dr[3],
+                    Street = dr[4].ToString(),
+                    Suburb = dr[5].ToString(),
+                    State = dr[6].ToString(),
+                    Postcode = dr[7].ToString(),
+                    MobileNum = dr[8].ToString(),
+                    Email = dr[9].ToString(),
+                    Username = dr[10].ToString(),
+                    Password = dr[11].ToString()
+                };
+                temp.Add(contractor);
+            }
+            return temp;
+        }
+
+        public static int insertContractor(Contractor contractor)
+        {
+            int rowsaffected;
+
+            string query = "INSERT INTO contractor (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email)" +
+               " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email)";
+
+            Contractor Addcontractor = new Contractor();
+            MySqlParameter[] param = new MySqlParameter[9];
+            param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
+            param[0].Value = contractor.FirstName;
+            param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
+            param[1].Value = contractor.SurName;
+            param[2] = new MySqlParameter("@dob", MySqlDbType.Date);
+            param[2].Value = contractor.DOB;
+            param[3] = new MySqlParameter("@street", MySqlDbType.VarChar);
+            param[3].Value = contractor.Street;
+            param[4] = new MySqlParameter("@suburb", MySqlDbType.VarChar);
+            param[4].Value = contractor.Suburb;
+            param[5] = new MySqlParameter("@state", MySqlDbType.VarChar);
+            param[5].Value = contractor.State;
+            param[6] = new MySqlParameter("@postcode", MySqlDbType.VarChar);
+            param[6].Value = contractor.Postcode;
+            param[7] = new MySqlParameter("@mobileNumber", MySqlDbType.VarChar);
+            param[7].Value = contractor.MobileNum;
+            param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
+            param[8].Value = contractor.Email;
+
+            rowsaffected = _DB.NonQuerySql(query, param);
+
+            return rowsaffected;
+        }
+
+        public static int updateContractor(Contractor contractor)
+        {
+            int rowsAffected;
+
+            string query = "UPDATE CONTRACTOR SET FirstName = @firstName, SurName = @surName, DOB = @dob, Street = @street, " +
+                "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber WHERE ContractorId = @contractorId";
+
+            Contractor Addcontractor = new Contractor();
+            MySqlParameter[] param = new MySqlParameter[10];
+            param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
+            param[0].Value = contractor.FirstName;
+            param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
+            param[1].Value = contractor.SurName;
+            param[2] = new MySqlParameter("@dob", MySqlDbType.Date);
+            param[2].Value = contractor.DOB;
+            param[3] = new MySqlParameter("@street", MySqlDbType.VarChar);
+            param[3].Value = contractor.Street;
+            param[4] = new MySqlParameter("@suburb", MySqlDbType.VarChar);
+            param[4].Value = contractor.Suburb;
+            param[5] = new MySqlParameter("@state", MySqlDbType.VarChar);
+            param[5].Value = contractor.State;
+            param[6] = new MySqlParameter("@postcode", MySqlDbType.VarChar);
+            param[6].Value = contractor.Postcode;
+            param[7] = new MySqlParameter("@mobileNumber", MySqlDbType.VarChar);
+            param[7].Value = contractor.MobileNum;
+            param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
+            param[8].Value = contractor.Email;
+            param[9] = new MySqlParameter("@contractorId", MySqlDbType.VarChar);
+            param[9].Value = contractor.contractorID;
+
+            rowsAffected = _DB.NonQuerySql(query, param);
+
+
+            return rowsAffected;
+
+        }
+
+        public static ObservableCollection<Contractor> GetAllBookingContractors(string bookingId)
+        {
+
+            string strQuery = "SELECT contractor.ContractorId, contractor.FirstName, contractor.SurName " +
+                "FROM service_booking, booking_contractors, contractor " +
+                "WHERE service_booking.BookingId = booking_contractors.BookingId " +
+                "AND booking_contractors.ContractorId = contractor.ContractorId " +
+                "AND service_booking.BookingId = '" + bookingId + "'";
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<Contractor>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Contractor bookingContractor = new Contractor()
+                {
+                    contractorID = Convert.ToInt32(dr[0]),
+                    FirstName = dr[1].ToString(),
+                    SurName = dr[2].ToString()
+                };
+                temp.Add(bookingContractor);
+            }
+            return temp;
+        }
+
+
+
+    }
+}

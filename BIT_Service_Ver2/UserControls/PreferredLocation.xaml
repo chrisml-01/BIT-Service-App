@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="BIT_Service_Ver2.UserControls.PreferredLocation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BIT_Service_Ver2.UserControls"
+             mc:Ignorable="d" 
+            Height="104.197" Width="251.589">
+    <Grid>
+        <GroupBox Header="Preferred Location" HorizontalAlignment="Left" Height="97" VerticalAlignment="Top" Width="232" Margin="10,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="51*"/>
+                    <ColumnDefinition Width="97*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Location 1:" HorizontalAlignment="Left" Margin="3,2,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="66" />
+                <Label Content="Location 2:" HorizontalAlignment="Left" Margin="3,0,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="71"/>
+                <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="131" Grid.Row="1" Height="22" />
+                <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="131" Grid.Row="2" Height="22"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

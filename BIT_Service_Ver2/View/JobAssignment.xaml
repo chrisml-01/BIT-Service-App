@@ -1,0 +1,149 @@
+﻿<Page x:Class="BIT_Service_Ver2.View.JobAssignment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BIT_Service_Ver2.View"
+      xmlns:mycontrols="clr-namespace:BIT_Service_Ver2.UserControls"
+      mc:Ignorable="d" 
+      Width="775" Height="520"
+      Title="JobAssignment" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="AliceBlue">
+            <Label Content="Job Assignment" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="449"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <GroupBox Header="Search" HorizontalAlignment="Left" Height="165" Margin="23,27,0,0" VerticalAlignment="Top" Width="406">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="279*"/>
+                                <ColumnDefinition Width="115*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Client ID:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="12,2,0,0" Grid.Row="0"/>
+                                <Label Content="Service:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="19,0,0,0" Grid.Row="1"/>
+                                <Label Content="Date:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="31,0,0,0" Grid.Row="2"/>
+                                <Label Content="Suburb:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="19,0,0,0" Grid.Row="3"/>
+                                <Label Content="Start Time:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="1,0,0,0" Grid.Row="4"/>
+                                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedJob.clientID}"/>
+                                <TextBox Name="txtService" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Text="{Binding SelectedJob.serviceName}"/>
+                                <TextBox Name="txtSkillId" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Visibility="Collapsed" Text="{Binding SelectedJob.skillId}"/>
+                                <DatePicker x:Name="bookingDate" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" 
+                                            VerticalAlignment="Top" Width="170" Grid.Row="2" FontSize="12" SelectedDate="{Binding SelectedJob.bookingDate}"/>
+                                <TextBox x:Name="txtSuburb" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="3" FontSize="12" Text="{Binding SelectedJob.suburb}"/>
+                                <TextBox x:Name="txtpreferredTime" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0"  
+                                          VerticalAlignment="Top" Width="170" Grid.Row="4" FontSize="12" Text="{Binding SelectedJob.preferredTime}"/>
+
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                </Grid.RowDefinitions>
+                                <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="3" Click="BtnSearch_Click"/>
+                                <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="4" Click="btnReset_Click"/>
+
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <GroupBox Header="More Details" HorizontalAlignment="Left" Height="216" Margin="23,24,0,0"  VerticalAlignment="Top" Width="406">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="279*"/>
+                                <ColumnDefinition Width="115*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Street:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,1,0,0" Grid.Row="0"/>
+                                <Label Content="State:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="31,0,0,0" Grid.Row="1"/>
+                                <Label Content="Postcode:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="9,1,0,0" Grid.Row="2"/>
+                                <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,0,0,0" Grid.Row="3"/>
+                                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedJob.street}"/>
+                                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" 
+                                         VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Text="{Binding SelectedJob.state}"/>
+                                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" 
+                                         VerticalAlignment="Top" Width="170" Grid.Row="2" FontSize="12" Text="{Binding SelectedJob.postcode}"/>
+                                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="3" FontSize="12" Text="{Binding SelectedJob.notes}"/>
+
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="27"/>
+                                </Grid.RowDefinitions>
+                                <Button x:Name="btnAssign" Content="Assign Job" HorizontalAlignment="Left" Margin="17,3,0,0" VerticalAlignment="Top" Width="84" Background="#FF17242A" Foreground="White" BorderThickness="0" Height="20" Click="btnAssign_Click"/>
+
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="167*"/>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="258*"/>
+                </Grid.RowDefinitions>
+                <Label Content="All Unassigned Job Requests:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="25" Width="163" Margin="0,8,0,0"/>
+                <Label Content="All Available Contractors:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="142" Grid.RowSpan="3" Margin="0,166,0,0"/>
+                <DataGrid Name="dgUnassigend" HorizontalAlignment="Left" Height="164" Grid.Row="1" VerticalAlignment="Top" Width="304"
+                          ItemsSource="{Binding UnassignedJob}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGrid Name="dgavailableContractors" HorizontalAlignment="Left" Height="208" Grid.Row="3" VerticalAlignment="Top" Width="304"
+                          ItemsSource="{Binding ContractorsAvailable}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
