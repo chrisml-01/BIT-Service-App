@@ -48,43 +48,47 @@ namespace BIT_Service_Ver2.Model
             return temp;
         }
 
-        public static int insertAssignBooking(JobRequest booking)
+        public static ObservableCollection<ContractorAvailable> GetAllContractors()
+        {
+           
+            string strQuery = "select contractorId, FirstName, SurName from Contractor";
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<ContractorAvailable>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                ContractorAvailable contractor = new ContractorAvailable()
+                {
+                    contractorId = Convert.ToInt32(dr[0]),
+                    Firstname = dr[1].ToString(),
+                    Surname = dr[2].ToString()
+                };
+                temp.Add(contractor);
+            }
+            return temp;
+        }
+        public static int insertAssignBooking(int bookingId, int clientId, int contractorId)
         {
             int rowsaffected;
-            string strBookingQuery = "insert INTO service_booking(BookingId, ClientId, Status) VALUES(@bookingId, @clientId, @status)";
+            string strBookingQuery = "insert INTO service_booking(BookingId, ClientId, ContractorId, Status) VALUES(@bookingId, @clientId, @contractorId, @status)";
 
-            MySqlParameter[] param = new MySqlParameter[3];
+            MySqlParameter[] param = new MySqlParameter[4];
             param[0] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
-            param[0].Value = booking.bookingId;
+            param[0].Value = bookingId;
             param[1] = new MySqlParameter("@clientId", MySqlDbType.Int32);
-            param[1].Value = booking.clientID;
-            param[2] = new MySqlParameter("@status", MySqlDbType.VarChar);
-            param[2].Value = "Pending";
+            param[1].Value = clientId;
+            param[2] = new MySqlParameter("@contractorId", MySqlDbType.Int32);
+            param[2].Value = contractorId;
+            param[3] = new MySqlParameter("@status", MySqlDbType.VarChar);
+            param[3].Value = "Pending";
 
             rowsaffected = _DB.NonQuerySql(strBookingQuery, param);
 
             return rowsaffected;
         }
 
-        public static int insertAssignContractor(ContractorAvailable contractor, JobRequest booking)
-        {
-            int rowsaffected;
-
-            string strContractorQuery = "insert INTO booking_contractors(contractorId, bookingId, clientId) VALUES(@contractorId, @bookingId, @clientId)";
-
-            MySqlParameter[] param = new MySqlParameter[3];
-            param[0] = new MySqlParameter("@contractorId", MySqlDbType.Int32);
-            param[0].Value = contractor.contractorId;
-            param[1] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
-            param[1].Value = booking.bookingId;
-            param[2] = new MySqlParameter("@clientId", MySqlDbType.Int32);
-            param[2].Value = booking.clientID;
-
-            rowsaffected = _DB.NonQuerySql(strContractorQuery, param);
-
-            return rowsaffected;
-
-
-        }
     }
 }

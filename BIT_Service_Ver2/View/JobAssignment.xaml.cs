@@ -2,6 +2,7 @@
 using BIT_Service_Ver2.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,9 @@ namespace BIT_Service_Ver2.View
         {
             InitializeComponent();
             DataContext = new JobAssignmentVM();
+
+            dgavailableContractors.DataContext = new JobAssignmentVM();
+           
         }
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
@@ -35,16 +39,44 @@ namespace BIT_Service_Ver2.View
             int skill = int.Parse(txtSkillId.Text);
 
             dgavailableContractors.DataContext = new JobAssignmentVM(txtpreferredTime.Text, bookingDate.SelectedDate.Value, txtSuburb.Text, skill);
-        }
 
-        private void btnAssign_Click(object sender, RoutedEventArgs e)
-        {
-            
+
+
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void BtnAssign_Click(object sender, RoutedEventArgs e)
+        {
+            int bookingId = int.Parse(txtBookingId.Text);
+            int clientId = int.Parse(txtClientId.Text);
+            
+          foreach(var items in dgavailableContractors.SelectedItems)
+            {
+                ContractorAvailable contractor = items as ContractorAvailable;
+                //MessageBox.Show(contractor.contractorId.ToString());
+
+                int rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractor.contractorId);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("job assigned!");
+                }
+                else
+                {
+                    MessageBox.Show("assgning failed!");
+                }
+
+                //MessageBox.Show(txtBookingId.Text + txtClientId.Text + contractor.contractorId.ToString());
+
+            }
+
+            
+
+
         }
     }
 }

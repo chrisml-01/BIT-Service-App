@@ -78,6 +78,7 @@
     <Compile Include="Commands\NotifyClass.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandPara.cs" />
+    <Compile Include="Model\AssignedBooking.cs" />
     <Compile Include="Model\Availability.cs" />
     <Compile Include="Model\AvailabilityDB.cs" />
     <Compile Include="Model\Client.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Model\ContractorDB.cs" />
     <Compile Include="Model\Coordinator.cs" />
     <Compile Include="Model\CoordinatorDB.cs" />
+    <Compile Include="Model\DAL.cs" />
     <Compile Include="Model\JobAssignmentDB.cs" />
     <Compile Include="Model\JobRequest.cs" />
     <Compile Include="Model\JobRequestDB.cs" />

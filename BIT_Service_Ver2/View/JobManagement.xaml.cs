@@ -26,9 +26,11 @@ namespace BIT_Service_Ver2.View
             InitializeComponent();
             DataContext = new JobRequestVM();
 
+            //dgAll.DataContext = new JobRequestVM(cbxFilter.SelectedIndex);
+
             //int bookingId = int.Parse(txtBookingId.Text);
 
-            lstContractor.DataContext = new JobRequestVM(txtBookingId.Text);
+            //lstContractor.DataContext = new JobRequestVM(txtBookingId.Text);
 
 
         }

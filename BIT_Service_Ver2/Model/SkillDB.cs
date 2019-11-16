@@ -46,7 +46,7 @@ namespace BIT_Service_Ver2.Model
         {
             int rowsaffected;
 
-            string query = "INSERT INTO skills (SkillName, Description, Charge)" +
+            string query = "INSERT INTO skills (SkillName, Description, ChargePerHr)" +
                " VALUES (@skillName, @description, @charge)";
 
             Skill addSkill = new Skill();

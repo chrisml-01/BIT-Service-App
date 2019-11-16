@@ -50,6 +50,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+
         public JobAssignmentVM()
         {
 
@@ -58,6 +59,14 @@ namespace BIT_Service_Ver2.ViewModel
             {
                 UnassignedJob.Add(item);
             }
+
+            //var contractors = JobAssignmentDB.GetAllAvailableContractors(SelectedJob.preferredTime, SelectedJob.bookingDate, SelectedJob.suburb, SelectedJob.skillID);
+
+            //foreach (var item in contractors)
+            //{
+            //    ContractorsAvailable.Add(item);
+            //}
+
         }
 
         public JobAssignmentVM(string time, DateTime bookingdate, string suburb, int contractorSkill)
@@ -68,12 +77,24 @@ namespace BIT_Service_Ver2.ViewModel
             foreach (var item in contractors)
             {
                 ContractorsAvailable.Add(item);
-            }
+            }           
+            
         }
 
-        public void InsertBooking()
+        //public GetAllContractors()
+        //{
+        //    var contractors = JobAssignmentDB.GetAllContractors();
+        //    foreach (var item in contractors)
+        //    {
+        //        ContractorsAvailable.Add(item);
+        //    }
+
+
+        //}
+
+        public void AssignBooking(int bookingId, int clientId, int contractorId)
         {
-            rowsAffected = JobAssignmentDB.insertAssignBooking(SelectedJob);
+            rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractorId);
 
             if (rowsAffected != 0)
             {
@@ -86,19 +107,5 @@ namespace BIT_Service_Ver2.ViewModel
 
         }
 
-        public void InsertAssignContractor()
-        {
-            rowsAffected = JobAssignmentDB.insertAssignContractor(SelectedContractor, SelectedJob);
-
-            if (rowsAffected != 0)
-            {
-                MessageBox.Show("client added!");
-            }
-            else
-            {
-                MessageBox.Show("insert failed!");
-            }
-
-        }
     }
 }

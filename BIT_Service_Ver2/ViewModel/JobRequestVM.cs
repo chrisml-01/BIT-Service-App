@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BIT_Service_Ver2.ViewModel
 {
@@ -16,6 +17,9 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
         private ObservableCollection<Contractor> _contractors = new ObservableCollection<Contractor>();
         private JobRequest _selectedJob;
+        private Skill _selectedSkill;
+        private Client _selectedClient;
+        private int rowsAffected; 
 
         public  ObservableCollection<JobRequest> JobRequests
         {
@@ -49,6 +53,26 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        public Skill SelectedSkill
+        {
+            get { return _selectedSkill ; }
+            set
+            {
+                _selectedSkill = value;
+                OnPropertyChanged("SelectedJob");
+            }
+        }
+
+        public Client SelectedClient
+        {
+            get { return _selectedClient; }
+            set
+            {
+                _selectedClient = value;
+                OnPropertyChanged("SelectedJob");
+            }
+        }
+
         public JobRequestVM()
         {
             var temp = JobRequestDB.GetAllJob();
@@ -69,18 +93,67 @@ namespace BIT_Service_Ver2.ViewModel
                 Skills.Add(item);
             }
         }
-        
-        public JobRequestVM(string bookingId)
-        {
-            var contractors = ContractorDB.GetAllBookingContractors(bookingId);
-            foreach (var item in contractors)
-            {
-                BookingContractors.Add(item);
-            }
-        }
-      
 
-        
+        public RelayCommand Add
+        {
+            get { return new RelayCommand(InsertBooking, true); }
+        }
+
+        public RelayCommand Update
+        {
+            get { return new RelayCommand(UpdateBooking, true); }
+        }
+
+        private void InsertBooking()
+        {
+
+            rowsAffected = JobRequestDB.insertBooking(SelectedJob);
+
+            if (rowsAffected != 0)
+            {
+                MessageBox.Show("booking added!");
+            }
+            else
+            {
+                MessageBox.Show("insert failed!");
+            }
+
+        }
+
+        private void UpdateBooking()
+        {
+
+            rowsAffected = JobRequestDB.updateBooking(SelectedJob);
+
+            if (rowsAffected != 0)
+            {
+                MessageBox.Show("booking updated!");
+            }
+            else
+            {
+                MessageBox.Show("update failed!");
+            }
+
+        }
+        //public JobRequestVM(int index)
+        //{
+        //    var temp = JobRequestDB.GetAllJob(index);
+        //    foreach (var item in temp)
+        //    {
+        //        JobRequests.Add(item);
+        //    }
+        //}
+        //public JobRequestVM(string bookingId)
+        //{
+        //    var contractors = ContractorDB.GetAllBookingContractors(bookingId);
+        //    foreach (var item in contractors)
+        //    {
+        //        BookingContractors.Add(item);
+        //    }
+        //}
+
+
+
 
 
     }

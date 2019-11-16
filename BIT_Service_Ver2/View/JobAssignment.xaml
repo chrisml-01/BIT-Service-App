@@ -53,12 +53,14 @@
                                 <Label Content="Date:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="31,0,0,0" Grid.Row="2"/>
                                 <Label Content="Suburb:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="19,0,0,0" Grid.Row="3"/>
                                 <Label Content="Start Time:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="1,0,0,0" Grid.Row="4"/>
-                                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                <TextBox x:Name="txtClientId" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
                                          VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedJob.clientID}"/>
+                                <TextBox x:Name="txtBookingId" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Visibility="Collapsed" Text="{Binding SelectedJob.bookingId}"/>
                                 <TextBox Name="txtService" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
                                          VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Text="{Binding SelectedJob.serviceName}"/>
                                 <TextBox Name="txtSkillId" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
-                                         VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Visibility="Collapsed" Text="{Binding SelectedJob.skillId}"/>
+                                         VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Visibility="Collapsed" Text="{Binding SelectedJob.skillID}"/>
                                 <DatePicker x:Name="bookingDate" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" 
                                             VerticalAlignment="Top" Width="170" Grid.Row="2" FontSize="12" SelectedDate="{Binding SelectedJob.bookingDate}"/>
                                 <TextBox x:Name="txtSuburb" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
@@ -104,14 +106,17 @@
                                 <Label Content="State:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="31,0,0,0" Grid.Row="1"/>
                                 <Label Content="Postcode:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="9,1,0,0" Grid.Row="2"/>
                                 <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,0,0,0" Grid.Row="3"/>
-                                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
-                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedJob.street}"/>
+                                <TextBox x:Name="txtStreet" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedContractor.SelectedCell}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" 
                                          VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Text="{Binding SelectedJob.state}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" 
                                          VerticalAlignment="Top" Width="170" Grid.Row="2" FontSize="12" Text="{Binding SelectedJob.postcode}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="5,3,0,0" TextWrapping="Wrap"  
                                          VerticalAlignment="Top" Width="170" Grid.Row="3" FontSize="12" Text="{Binding SelectedJob.notes}"/>
+
+                                <TextBox x:Name="txtId" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Visibility="Collapsed" Text="{Binding SelectedContractor.contractorId}"/>
 
                             </Grid>
                             <Grid Grid.Column="1">
@@ -122,7 +127,7 @@
                                     <RowDefinition Height="27"/>
                                     <RowDefinition Height="27"/>
                                 </Grid.RowDefinitions>
-                                <Button x:Name="btnAssign" Content="Assign Job" HorizontalAlignment="Left" Margin="17,3,0,0" VerticalAlignment="Top" Width="84" Background="#FF17242A" Foreground="White" BorderThickness="0" Height="20" Click="btnAssign_Click"/>
+                                <Button x:Name="btnAssign" Content="Assign Job" HorizontalAlignment="Left" Margin="17,3,0,0" VerticalAlignment="Top" Width="84" Background="#FF17242A" Foreground="White" BorderThickness="0" Height="20" Click="BtnAssign_Click"/>
 
                             </Grid>
                         </Grid>
@@ -142,7 +147,8 @@
                 <DataGrid Name="dgUnassigend" HorizontalAlignment="Left" Height="164" Grid.Row="1" VerticalAlignment="Top" Width="304"
                           ItemsSource="{Binding UnassignedJob}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGrid Name="dgavailableContractors" HorizontalAlignment="Left" Height="208" Grid.Row="3" VerticalAlignment="Top" Width="304"
-                          ItemsSource="{Binding ContractorsAvailable}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True"/>
+                          ItemsSource="{Binding ContractorsAvailable}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True">
+                </DataGrid>
             </Grid>
         </Grid>
     </Grid>
