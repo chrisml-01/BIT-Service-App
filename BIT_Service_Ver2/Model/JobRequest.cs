@@ -24,26 +24,5 @@ namespace BIT_Service_Ver2.Model
         public string startTime { get; set; }
         public string endTime { get; set; }
 
-        //public JobRequest(DataRow drJobReq)
-        //{
-        //    MapJobRequestProperties(drJobReq);
-        //}
-        //private void MapJobRequestProperties(DataRow dr)
-        //{
-        //    this.bookingId = Convert.ToInt32(dr["bookingId"].ToString());
-        //    this.clientID = Convert.ToInt32(dr["clientId"].ToString());
-        //    this.skillID = Convert.ToInt32(dr["skillId"].ToString());
-        //    this.serviceName = dr["serviceName"].ToString();
-        //    this.bookingDate = Convert.ToDateTime(dr["bookingDate"].ToString());
-        //    this.preferredTime = dr["preferredTime"].ToString();
-        //    this.street = dr["street"].ToString();
-        //    this.suburb = dr["suburb"].ToString();
-        //    this.state = dr["state"].ToString();
-        //    this.postcode = dr["postcode"].ToString();
-        //    this.status = dr["status"].ToString();
-        //    this.notes = dr["notes"].ToString();
-        //    this.startTime = dr["startTime"].ToString();
-        //    this.endTime = dr["endTime"].ToString();
-        //}
     }
 }

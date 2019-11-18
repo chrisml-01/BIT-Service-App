@@ -105,6 +105,45 @@ namespace BIT_Service_Ver2.Model
             return temp;
         }
 
+        public static ObservableCollection<JobApproval> GetAllJobApproval()
+        {
+
+            string strQuery = "SELECT booking.bookingId, contractor.ContractorId , CONCAT( contractor.FirstName,' ' ,contractor.SurName) AS ContractorName ,skills.SkillName, booking.BookingDate, service_booking.StartTime, service_booking.EndTime ,pay_booking.TotalHours, pay_booking.TotalDistancedTravelled ,client.ClientId, CONCAT( client.FirstName,' ' ,client.SurName) AS ClientName " +
+                "FROM pay_booking, service_booking, booking, client, skills, contractor " +
+                "WHERE pay_booking.BookingId = service_booking.BookingId " +
+                "AND booking.BookingId = service_booking.BookingId " +
+                "AND booking.ClientId = client.ClientId " +
+                "AND booking.SkillId = skills.SkillId " +
+                "AND service_booking.ContractorId = contractor.ContractorId " +
+                "AND pay_booking.ContractorId = service_booking.ContractorId " +
+                "AND service_booking.Status = 'Completed'";
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<JobApproval>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                JobApproval job = new JobApproval()
+                {
+                    bookingId = Convert.ToInt32(dr[0]),
+                    contractorId = Convert.ToInt32(dr[1]),
+                    contractorName = dr[2].ToString(),
+                    serviceName = dr[3].ToString(),
+                    bookingDate = (DateTime)dr[4],
+                    startTime = dr[5].ToString(),
+                    endTime = dr[6].ToString(),
+                    totalHrs = dr[7].ToString(),
+                    totalKms = dr[8].ToString() + " km",
+                    clientId = Convert.ToInt32(dr[9]),
+                    clientName = dr[10].ToString()
+                };
+                temp.Add(job);
+            }
+            return temp;
+        }
+
 
 
         ////CRUD PART OF JOB REQUEST MANAGEMENT
@@ -176,6 +215,41 @@ namespace BIT_Service_Ver2.Model
             param[9].Value = job.status;
             param[10] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
             param[10].Value = job.bookingId;
+
+            rowsaffected = _DB.NonQuerySql(query, param);
+
+            return rowsaffected;
+        }
+
+        //APPROVE AND DISAPPROVE OF COMPLETED JOB
+        public static int approveBooking(JobApproval job)
+        {
+            int rowsaffected;
+
+            string query = "UPDATE pay_booking SET Status = 'Approved' WHERE BookingId = @bookingId AND ContractorId = @contractorId;";
+
+            MySqlParameter[] param = new MySqlParameter[2];
+            param[0] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
+            param[0].Value = job.bookingId;
+            param[1] = new MySqlParameter("@contractorId", MySqlDbType.Int32);
+            param[1].Value = job.contractorId;
+            
+            rowsaffected = _DB.NonQuerySql(query, param);
+
+            return rowsaffected;
+        }
+
+        public static int disapproveBooking(JobApproval job)
+        {
+            int rowsaffected;
+
+            string query = "UPDATE pay_booking SET Status = 'Disapproved' WHERE BookingId = @bookingId AND ContractorId = @contractorId;";
+
+            MySqlParameter[] param = new MySqlParameter[2];
+            param[0] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
+            param[0].Value = job.bookingId;
+            param[1] = new MySqlParameter("@contractorId", MySqlDbType.Int32);
+            param[1].Value = job.contractorId;
 
             rowsaffected = _DB.NonQuerySql(query, param);
 

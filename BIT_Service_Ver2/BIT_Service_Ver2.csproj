@@ -89,6 +89,7 @@
     <Compile Include="Model\Coordinator.cs" />
     <Compile Include="Model\CoordinatorDB.cs" />
     <Compile Include="Model\DAL.cs" />
+    <Compile Include="Model\JobApproval.cs" />
     <Compile Include="Model\JobAssignmentDB.cs" />
     <Compile Include="Model\JobRequest.cs" />
     <Compile Include="Model\JobRequestDB.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="ViewModel\ClientViewModel.cs" />
     <Compile Include="ViewModel\ContractorViewModel.cs" />
     <Compile Include="ViewModel\CoordinatorViewModel.cs" />
+    <Compile Include="ViewModel\JobApprovalVM.cs" />
     <Compile Include="ViewModel\JobAssignmentVM.cs" />
     <Compile Include="ViewModel\JobRequestVM.cs" />
     <Compile Include="ViewModel\SkillVM.cs" />
@@ -143,6 +145,9 @@
     </Compile>
     <Compile Include="View\CoordinatorMenu.xaml.cs">
       <DependentUpon>CoordinatorMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\JobApproval.xaml.cs">
+      <DependentUpon>JobApproval.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\JobAssignment.xaml.cs">
       <DependentUpon>JobAssignment.xaml</DependentUpon>
@@ -224,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CoordinatorMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\JobApproval.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

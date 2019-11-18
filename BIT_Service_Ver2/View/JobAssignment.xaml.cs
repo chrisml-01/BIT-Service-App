@@ -70,7 +70,6 @@ namespace BIT_Service_Ver2.View
                     MessageBox.Show("assgning failed!");
                 }
 
-                //MessageBox.Show(txtBookingId.Text + txtClientId.Text + contractor.contractorId.ToString());
 
             }
 

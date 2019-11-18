@@ -18,6 +18,7 @@
             <Button x:Name="btnJobManagement" Content="Job Request" HorizontalAlignment="Left" Margin="192,19,0,0" VerticalAlignment="Top" Width="114" FontSize="14" Background="#FF2A4757" BorderThickness="0" Foreground="White" Height="26" Visibility="Collapsed" Click="BtnJobManagement_Click"/>
             <Button x:Name="btnJobAssigment" Content="Job Assigment" HorizontalAlignment="Left" Margin="316,19,0,0" VerticalAlignment="Top" Width="114" FontSize="14" Background="#FF2A4757" BorderThickness="0" Foreground="White" Height="26" Visibility="Collapsed" Click="BtnJobAssigment_Click"/>
             <Button x:Name="btnSkill" Content="Add New Skill" HorizontalAlignment="Left" Margin="826,19,0,0" VerticalAlignment="Top" Width="114" FontSize="14" Background="#FF2A4757" BorderThickness="0" Foreground="White" Height="26" Visibility="Collapsed" Click="BtnSkill_Click"/>
+            <Button x:Name="btnJobApproval" Content="Job Approval" HorizontalAlignment="Left" Margin="440,19,0,0" VerticalAlignment="Top" Width="114" FontSize="14" Background="#FF2A4757" BorderThickness="0" Foreground="White" Height="26" Visibility="Collapsed" Click="BtnJobApproval_Click"/>
         </Grid>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>

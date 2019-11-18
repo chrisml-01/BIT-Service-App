@@ -107,7 +107,7 @@
                                 <Label Content="Postcode:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="9,1,0,0" Grid.Row="2"/>
                                 <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,0,0,0" Grid.Row="3"/>
                                 <TextBox x:Name="txtStreet" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
-                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedContractor.SelectedCell}"/>
+                                         VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedJob.street}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" 
                                          VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="12" Text="{Binding SelectedJob.state}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" 

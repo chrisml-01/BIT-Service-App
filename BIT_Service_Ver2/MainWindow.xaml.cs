@@ -36,6 +36,7 @@ namespace BIT_Service_Ver2
             btnJobAssigment.Visibility = Visibility.Collapsed;
             btnJobManagement.Visibility = Visibility.Collapsed;
             btnSkill.Visibility = Visibility.Collapsed;
+            btnJobApproval.Visibility = Visibility.Collapsed;
         }
 
         private void BtnClient_Click(object sender, RoutedEventArgs e)
@@ -57,6 +58,7 @@ namespace BIT_Service_Ver2
             btnJobAssigment.Visibility = Visibility.Collapsed;
             btnJobManagement.Visibility = Visibility.Collapsed;
             btnSkill.Visibility = Visibility.Collapsed;
+            btnJobApproval.Visibility = Visibility.Collapsed;
         }
 
         private void BtnServices_Click(object sender, RoutedEventArgs e)
@@ -65,9 +67,11 @@ namespace BIT_Service_Ver2
             btnJobAssigment.Visibility = Visibility.Visible;
             btnJobManagement.Visibility = Visibility.Visible;
             btnSkill.Visibility = Visibility.Visible;
+            btnJobApproval.Visibility = Visibility.Visible;
             btnCoordinator.Visibility = Visibility.Collapsed;
             btnClient.Visibility = Visibility.Collapsed;
             btnContractor.Visibility = Visibility.Collapsed;
+            
            
         }
 
@@ -96,6 +100,11 @@ namespace BIT_Service_Ver2
             //this.Close();
             //Window logOn = new LogOn();
             //logOn.ShowDialog();
+        }
+
+        private void BtnJobApproval_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new JobApproval();
         }
     }
 }
