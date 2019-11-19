@@ -67,6 +67,8 @@ namespace BIT_Service_Ver2.ViewModel
 
             rowsAffected = ClientDB.insertClient(SelectedClient);
 
+            
+
             if (rowsAffected != 0)
             {
                 MessageBox.Show("client added!");

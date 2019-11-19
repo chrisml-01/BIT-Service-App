@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BIT_Service_Ver2.Model
 {
@@ -45,7 +46,19 @@ namespace BIT_Service_Ver2.Model
                 };
                 temp.Add(contractorAvailable);
             }
-            return temp;
+
+            var contractors = new ObservableCollection<ContractorAvailable>();
+
+            if(temp.Count == 0)
+            {
+                MessageBox.Show("No Contractors found!");
+            }
+            else
+            {
+                contractors = temp;
+            }
+
+            return contractors;
         }
 
         public static ObservableCollection<ContractorAvailable> GetAllContractors()

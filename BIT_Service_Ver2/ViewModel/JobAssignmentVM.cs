@@ -60,13 +60,6 @@ namespace BIT_Service_Ver2.ViewModel
                 UnassignedJob.Add(item);
             }
 
-            //var contractors = JobAssignmentDB.GetAllAvailableContractors(SelectedJob.preferredTime, SelectedJob.bookingDate, SelectedJob.suburb, SelectedJob.skillID);
-
-            //foreach (var item in contractors)
-            //{
-            //    ContractorsAvailable.Add(item);
-            //}
-
         }
 
         public JobAssignmentVM(string time, DateTime bookingdate, string suburb, int contractorSkill)

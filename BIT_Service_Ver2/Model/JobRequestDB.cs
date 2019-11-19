@@ -226,7 +226,7 @@ namespace BIT_Service_Ver2.Model
         {
             int rowsaffected;
 
-            string query = "UPDATE pay_booking SET Status = 'Approved' WHERE BookingId = @bookingId AND ContractorId = @contractorId;";
+            string query = "UPDATE service_booking SET service_booking.Status = 'Sent for Payment' WHERE BookingId = @bookingId AND ContractorId = @contractorId;";
 
             MySqlParameter[] param = new MySqlParameter[2];
             param[0] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
@@ -243,7 +243,7 @@ namespace BIT_Service_Ver2.Model
         {
             int rowsaffected;
 
-            string query = "UPDATE pay_booking SET Status = 'Disapproved' WHERE BookingId = @bookingId AND ContractorId = @contractorId;";
+            string query = "UPDATE service_booking SET service_booking.Status = 'Request Denied' WHERE BookingId = @bookingId AND ContractorId = @contractorId;";
 
             MySqlParameter[] param = new MySqlParameter[2];
             param[0] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
