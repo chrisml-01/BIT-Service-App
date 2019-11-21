@@ -106,7 +106,24 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Button x:Name="btnAvailability" Content="View Availability" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Background="#FF17242A" Foreground="White" BorderThickness="0" FontSize="14" Click="BtnAvailability_Click" Height="22" Margin="293,10,0,0"/>
-                    <mycontrols:LoginDets Margin="9,-1,174,166" DataContext="{Binding SelectedContractor}"/>
+                    <GroupBox Header="Login Details" HorizontalAlignment="Left" Height="97" VerticalAlignment="Top" Width="232" Margin="17,5,0,0" Grid.Row="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="51*"/>
+                                <ColumnDefinition Width="97*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Username:" HorizontalAlignment="Left" Margin="3,2,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="66" />
+                            <Label Content="Password:" HorizontalAlignment="Left" Margin="6,2,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="65"/>
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="131" Grid.Row="1" Height="22" Text="{Binding SelectedContractor.Username}"/>
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="131" Grid.Row="2" Height="22" Text="{Binding SelectedContractor.Password}"/>
+                        </Grid>
+                    </GroupBox>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">

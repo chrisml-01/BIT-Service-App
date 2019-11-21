@@ -45,5 +45,77 @@ namespace BIT_Service_Ver2.Model
             }
             return temp;
         }
+
+        public static ObservableCollection<ContractorSkills> GetAllContractorSkills()
+        {
+
+            string strQuery = "SELECT contractor.ContractorId, skills.SkillId , skills.SkillName " +
+                "FROM contractor, contractorskill, skills " +
+                "WHERE contractor.ContractorId = contractorskill.ContractorId " +
+                "AND contractorskill.SkillId = skills.SkillId";
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<ContractorSkills>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                ContractorSkills skills = new ContractorSkills()
+                {
+                    ContractorID = Convert.ToInt32(dr[0]),
+                    SkillId = Convert.ToInt32(dr[1]),
+                    skillName = dr[2].ToString()
+                };
+                temp.Add(skills);
+            }
+            return temp;
+        }
+
+        public static ObservableCollection<PreferredLocation> GetAllPreferredLocation()
+        {
+
+            string strQuery = "SELECT preferredlocation.ContractorId, preferredlocation.Suburb " +
+                "FROM contractor, preferredlocation " +
+                "WHERE contractor.ContractorId = preferredlocation.ContractorId";
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<PreferredLocation>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                PreferredLocation location = new PreferredLocation()
+                {
+                    ContractorID = Convert.ToInt32(dr[0]),
+                    Suburb = dr[1].ToString()
+                };
+                temp.Add(location);
+            }
+            return temp;
+        }
+
+        public static ObservableCollection<Days> GetAllDays()
+        {
+
+            string strQuery = "SELECT day.DayId, day.DayName FROM day";
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<Days>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Days day = new Days()
+                {
+                    dayId = Convert.ToInt32(dr[0]),
+                    dayName = dr[1].ToString()
+                };
+                temp.Add(day);
+            }
+            return temp;
+        }
     }
 }

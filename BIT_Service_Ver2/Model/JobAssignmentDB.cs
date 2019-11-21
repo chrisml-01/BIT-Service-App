@@ -51,7 +51,7 @@ namespace BIT_Service_Ver2.Model
 
             if(temp.Count == 0)
             {
-                MessageBox.Show("No Contractors found!");
+                MessageBox.Show("No Available Contractors found!");
             }
             else
             {

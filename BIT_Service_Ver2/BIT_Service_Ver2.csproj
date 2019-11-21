@@ -78,7 +78,6 @@
     <Compile Include="Commands\NotifyClass.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandPara.cs" />
-    <Compile Include="Commands\Validator.cs" />
     <Compile Include="Model\AssignedBooking.cs" />
     <Compile Include="Model\Availability.cs" />
     <Compile Include="Model\AvailabilityDB.cs" />

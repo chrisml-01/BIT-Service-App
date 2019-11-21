@@ -55,11 +55,11 @@ namespace BIT_Service_Ver2.Model
         {
             int rowsaffected;
 
-            string query = "INSERT INTO coordinator (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email)" +
-               " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email)";
+            string query = "INSERT INTO coordinator (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password)" +
+               " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email, @username, @password)";
 
             Coordinator Addcoordinator = new Coordinator();
-            MySqlParameter[] param = new MySqlParameter[9];
+            MySqlParameter[] param = new MySqlParameter[11];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = coordinator.FirstName;
             param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
@@ -78,6 +78,10 @@ namespace BIT_Service_Ver2.Model
             param[7].Value = coordinator.MobileNum;
             param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
             param[8].Value = coordinator.Email;
+            param[9] = new MySqlParameter("@username", MySqlDbType.VarChar);
+            param[9].Value = coordinator.Username;
+            param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
+            param[10].Value = coordinator.Password;
 
             rowsaffected = _DB.NonQuerySql(query, param);
 
@@ -89,11 +93,11 @@ namespace BIT_Service_Ver2.Model
             int rowsAffected;
 
             string query = "UPDATE COORDINATOR SET FirstName = @firstName, SurName = @surName, DOB = @dob, Street = @street, " +
-                "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber WHERE CoordinatorId = @coordinatorId";
+                "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber, Username = @username, Password = @password WHERE CoordinatorId = @coordinatorId";
 
 
             Coordinator Addcoordinator = new Coordinator();
-            MySqlParameter[] param = new MySqlParameter[10];
+            MySqlParameter[] param = new MySqlParameter[12];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = coordinator.FirstName;
             param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
@@ -112,8 +116,12 @@ namespace BIT_Service_Ver2.Model
             param[7].Value = coordinator.MobileNum;
             param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
             param[8].Value = coordinator.Email;
-            param[9] = new MySqlParameter("@coordinatorId", MySqlDbType.VarChar);
-            param[9].Value = coordinator.coordinatorId;
+            param[9] = new MySqlParameter("@username", MySqlDbType.VarChar);
+            param[9].Value = coordinator.Username;
+            param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
+            param[10].Value = coordinator.Password;
+            param[11] = new MySqlParameter("@coordinatorId", MySqlDbType.VarChar);
+            param[11].Value = coordinator.coordinatorId;
 
             rowsAffected = _DB.NonQuerySql(query, param);
 

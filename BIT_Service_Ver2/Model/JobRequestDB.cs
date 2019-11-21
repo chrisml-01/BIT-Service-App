@@ -17,9 +17,12 @@ namespace BIT_Service_Ver2.Model
 
         public static ObservableCollection<JobRequest> GetAllJob()
         {
-            string strQuery = "SELECT BookingId, ClientId, booking.SkillId, skills.SkillName, BookingDate, preferredTime, Street, Suburb, State, PostCode, Status, Notes " +
-                "FROM booking, skills " +
-                "WHERE booking.SkillId = skills.SkillId";
+            string strQuery = "SELECT booking.BookingId, booking.ClientId, booking.SkillId, skills.SkillName, BookingDate, preferredTime, booking.Street, booking.Suburb, booking.State, booking.PostCode, service_booking.Status, Notes, service_booking.StartTime, service_booking.EndTime , GROUP_CONCAT(contractor.FirstName,' ',contractor.SurName) as ContractorName  " +
+                "FROM booking, skills, service_booking, contractor " +
+                "WHERE booking.SkillId = skills.SkillId " +
+                "AND booking.BookingId = service_booking.BookingId " +
+                "AND service_booking.ContractorId = contractor.ContractorId " + 
+                "GROUP BY booking.BookingId";
 
             DataTable dt = new DataTable();
 
@@ -42,9 +45,11 @@ namespace BIT_Service_Ver2.Model
                     state = dr[8].ToString(),
                     postcode = dr[9].ToString(),
                     status = dr[10].ToString(),
-                    notes = dr[11].ToString()
-                    //startTime = dr[12].ToString(),
-                    //endTime = dr[13].ToString()
+                    notes = dr[11].ToString(),
+                    startTime = dr[12].ToString(),
+                    endTime = dr[13].ToString(),
+                    contractorName = dr[14].ToString()
+                   
                 };
                 temp.Add(job);
             }

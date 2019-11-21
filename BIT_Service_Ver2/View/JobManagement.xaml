@@ -95,7 +95,6 @@
                                 <Label Content="State:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,0,0,0" Grid.Row="2"/>
                                 <Label Content="Postcode:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="4,0,0,0" Grid.Row="3"/>
                                 <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="20,26,0,0" Grid.Row="3" Grid.RowSpan="2" />
-                                <Label Content="BookingId:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Grid.Row="5"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="2,3,0,0" TextWrapping="Wrap"  
                                          VerticalAlignment="Top" Width="117" Grid.Row="0" FontSize="12"  Text="{Binding SelectedJob.street}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="2,3,0,0" TextWrapping="Wrap"  
@@ -121,10 +120,9 @@
                                     <ComboBoxItem>Completed</ComboBoxItem>
                                     <ComboBoxItem>Sent for Payment</ComboBoxItem>
                                     <ComboBoxItem>Request Denied</ComboBoxItem>
-                                    
+
                                 </ComboBox>
-                                <TextBox x:Name="txtBookingId" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="2,3,0,0" TextWrapping="Wrap"  
-                                         VerticalAlignment="Top" Width="117" Grid.Row="5" FontSize="12" Text="{Binding SelectedJob.bookingId}" IsEnabled="False"/>
+                                
 
                             </Grid>
                         </Grid>
@@ -141,8 +139,8 @@
                     </Grid.RowDefinitions>
                     <Label Content="Contractors Assigned:" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Grid.Row="0" Height="26" Width="125" Grid.RowSpan="2"/>
                     <Label Content="More Details:" HorizontalAlignment="Left" Margin="3,0,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Height="26" Width="80" Grid.RowSpan="2"/>
-                    <ListBox x:Name="lstContractor" HorizontalAlignment="Left" Height="123" Margin="20,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="188"
-                             />
+                    <TextBox x:Name="lstContractor" HorizontalAlignment="Left" Height="123" Margin="20,6,0,0" Grid.Row="1" 
+                             VerticalAlignment="Top" Width="188" Text="{Binding SelectedJob.contractorName}"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,6,0,0" Grid.Row="1" TextWrapping="Wrap"
                              VerticalAlignment="Top" Width="197" Height="123" Text="{Binding SelectedJob.notes}"/>
                 </Grid>
@@ -155,18 +153,11 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1">
-                    <DataGrid Name="dgAll" HorizontalAlignment="Left" Height="312" VerticalAlignment="Top" Width="330"
-                           ItemsSource="{Binding JobRequests}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" Margin="0,41,0,-3"/>
-                    <ComboBox x:Name="cbxFilter" HorizontalAlignment="Left" Margin="210,14,0,0" VerticalAlignment="Top" Width="120">
-                        <ComboBoxItem>Pending</ComboBoxItem>
-                        <ComboBoxItem>In Progress</ComboBoxItem>
-                        <ComboBoxItem>Sent for Payment</ComboBoxItem>
-                        <ComboBoxItem>Completed</ComboBoxItem>
-                    </ComboBox>
-                    <Label Content="Filter by:" HorizontalAlignment="Left" Margin="155,13,0,0" VerticalAlignment="Top"/>
+                    <DataGrid Name="dgAll" HorizontalAlignment="Left" Height="329" VerticalAlignment="Top" Width="330"
+                           ItemsSource="{Binding JobRequests}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" Margin="0,24,0,-3"/>
                 </Grid>
 
-                <mycontrols:Search Grid.Row="0" Margin="96,6,3,338" Grid.RowSpan="2"/>
+                <mycontrols:Search Grid.Row="0" Margin="94,8,5,335" Grid.RowSpan="2"/>
                 <mycontrols:Buttons Margin="-5,10,5,20" Grid.Row="2"/>
 
             </Grid>

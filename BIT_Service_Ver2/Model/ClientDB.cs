@@ -55,11 +55,11 @@ namespace BIT_Service_Ver2.Model
         {
             int rowsaffected;
 
-            string query = "INSERT INTO client (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email)" +
-               " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email)";
+            string query = "INSERT INTO client (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password)" +
+               " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email, @username, @password)";
 
             Client Addclient = new Client();
-            MySqlParameter[] param = new MySqlParameter[9];
+            MySqlParameter[] param = new MySqlParameter[11];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = client.FirstName;
             param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
@@ -78,6 +78,10 @@ namespace BIT_Service_Ver2.Model
             param[7].Value = client.MobileNum;
             param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
             param[8].Value = client.Email;
+            param[9] = new MySqlParameter("@username", MySqlDbType.VarChar);
+            param[9].Value = client.Username;
+            param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
+            param[10].Value = client.Password;
 
             rowsaffected = _DB.NonQuerySql(query, param);
 
@@ -89,10 +93,10 @@ namespace BIT_Service_Ver2.Model
             int rowsAffected;
 
             string query = "UPDATE CLIENT SET FirstName = @firstName, SurName = @surName, DOB = @dob, Street = @street, " +
-                "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber WHERE ClientId = @clientID";
+                "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber, Username = @username, Password = @password WHERE ClientId = @clientID";
 
             Client Addclient = new Client();
-            MySqlParameter[] param = new MySqlParameter[10];
+            MySqlParameter[] param = new MySqlParameter[12];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = client.FirstName;
             param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
@@ -111,8 +115,12 @@ namespace BIT_Service_Ver2.Model
             param[7].Value = client.MobileNum;
             param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
             param[8].Value = client.Email;
-            param[9] = new MySqlParameter("@clientID", MySqlDbType.Int32);
-            param[9].Value = client.clientID;
+            param[9] = new MySqlParameter("@username", MySqlDbType.VarChar);
+            param[9].Value = client.Username;
+            param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
+            param[10].Value = client.Password;
+            param[11] = new MySqlParameter("@clientID", MySqlDbType.Int32);
+            param[11].Value = client.clientID;
 
             rowsAffected = _DB.NonQuerySql(query, param);
 

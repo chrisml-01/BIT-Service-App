@@ -36,15 +36,39 @@ namespace BIT_Service_Ver2.View
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
 
-            int skill = int.Parse(txtSkillId.Text);
+            if (dgUnassigend.SelectedIndex >= 0)
+            {
 
-            dgavailableContractors.DataContext = new JobAssignmentVM(txtpreferredTime.Text, bookingDate.SelectedDate.Value, txtSuburb.Text, skill);
-           
+                int skill = int.Parse(txtSkillId.Text);
+
+                dgavailableContractors.DataContext = new JobAssignmentVM(txtpreferredTime.Text, bookingDate.SelectedDate.Value, txtSuburb.Text, skill);
+            }
+            else
+            {
+                MessageBox.Show("Please make sure to select a job to assign.");
+            }
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-           
+            List<DatePicker> dtPickerList;
+            dtPickerList = GridSearch.Children.OfType<DatePicker>().ToList();
+            foreach(DatePicker dt in dtPickerList)
+            {
+                dt.SelectedDate = null;
+            }
+            List<TextBox> txtList;
+            txtList = GridSearch.Children.OfType<TextBox>().ToList();
+            foreach (TextBox txt in txtList)
+            {
+                txt.Text = "";
+            }
+            List<TextBox> txtList1;
+            txtList1 = MoreDets.Children.OfType<TextBox>().ToList();
+            foreach (TextBox txt in txtList1)
+            {
+                txt.Text = "";
+            }
         }
 
         private void BtnAssign_Click(object sender, RoutedEventArgs e)
@@ -63,11 +87,11 @@ namespace BIT_Service_Ver2.View
 
             if (rowsAffected != 0)
             {
-                MessageBox.Show("job assigned!");
+                MessageBox.Show("Job successfully assigned!");
             }
             else
             {
-                MessageBox.Show("assigning failed!");
+                MessageBox.Show("Assign Failed! Please make sure that you've selected contractor(s).");
             }
 
         }

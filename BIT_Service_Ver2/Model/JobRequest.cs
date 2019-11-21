@@ -23,6 +23,7 @@ namespace BIT_Service_Ver2.Model
         public string notes { get; set; }
         public string startTime { get; set; }
         public string endTime { get; set; }
+        public string contractorName { get; set; }
 
     }
 }

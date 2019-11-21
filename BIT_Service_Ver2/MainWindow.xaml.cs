@@ -97,9 +97,9 @@ namespace BIT_Service_Ver2
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            //this.Close();
-            //Window logOn = new LogOn();
-            //logOn.ShowDialog();
+            this.Close();
+            Window logOn = new LogOn();
+            logOn.Show();
         }
 
         private void BtnJobApproval_Click(object sender, RoutedEventArgs e)

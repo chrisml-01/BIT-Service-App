@@ -18,7 +18,7 @@
             <Label Content="Job Assignment" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Name="MainGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="449"/>
                 <ColumnDefinition/>
@@ -28,14 +28,14 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <GroupBox Header="Search" HorizontalAlignment="Left" Height="165" Margin="23,27,0,0" VerticalAlignment="Top" Width="406">
+                <Grid Name="DetsGrid" Grid.Row="0">
+                    <GroupBox Name="SearchDets" Header="Search" HorizontalAlignment="Left" Height="165" Margin="23,27,0,0" VerticalAlignment="Top" Width="406">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="279*"/>
                                 <ColumnDefinition Width="115*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
+                            <Grid Name="GridSearch" Grid.Column="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="27"/>
                                     <RowDefinition Height="27"/>
@@ -77,9 +77,10 @@
                                     <RowDefinition Height="27"/>
                                     <RowDefinition Height="27"/>
                                 </Grid.RowDefinitions>
-                                <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="3" Click="BtnSearch_Click"/>
-                                <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="4" Click="btnReset_Click"/>
-
+                                <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="1" Click="BtnSearch_Click"/>
+                                <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="2" Command="{Binding Update}"/>
+                                <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="Black" BorderThickness="1,1,1,1" Grid.Row="3" IsEnabled="False"/>
+                                <Button x:Name="btnReset" Content="Cancel" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="4" Click="btnReset_Click"/>
                             </Grid>
                         </Grid>
                     </GroupBox>
@@ -91,7 +92,7 @@
                                 <ColumnDefinition Width="279*"/>
                                 <ColumnDefinition Width="115*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
+                            <Grid Name="MoreDets" Grid.Column="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="27"/>
                                     <RowDefinition Height="27"/>

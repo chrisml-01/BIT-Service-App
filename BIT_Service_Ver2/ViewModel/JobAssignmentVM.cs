@@ -14,6 +14,7 @@ namespace BIT_Service_Ver2.ViewModel
     {
         private ObservableCollection<JobRequest> _job = new ObservableCollection<JobRequest>();
         private ObservableCollection<ContractorAvailable> _contractors = new ObservableCollection<ContractorAvailable>();
+        private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
         private JobRequest _selectedJob;
         private ContractorAvailable _selectedContractor;
         private int rowsAffected;
@@ -22,6 +23,12 @@ namespace BIT_Service_Ver2.ViewModel
         {
             get { return _job; }
             set { _job = value; }
+        }
+
+        public ObservableCollection<Skill> Skills
+        {
+            get { return _skill; }
+            set { _skill = value; }
         }
 
         public ObservableCollection<ContractorAvailable> ContractorsAvailable
@@ -60,6 +67,11 @@ namespace BIT_Service_Ver2.ViewModel
                 UnassignedJob.Add(item);
             }
 
+            var skills = SkillDB.GetAllSkills();
+            foreach (var item in skills)
+            {
+                Skills.Add(item);
+            }
         }
 
         public JobAssignmentVM(string time, DateTime bookingdate, string suburb, int contractorSkill)
@@ -74,16 +86,26 @@ namespace BIT_Service_Ver2.ViewModel
             
         }
 
-        //public GetAllContractors()
-        //{
-        //    var contractors = JobAssignmentDB.GetAllContractors();
-        //    foreach (var item in contractors)
-        //    {
-        //        ContractorsAvailable.Add(item);
-        //    }
+        public RelayCommand Update
+        {
+            get { return new RelayCommand(UpdateBooking, true); }
+        }
 
+        private void UpdateBooking()
+        {
 
-        //}
+            rowsAffected = JobRequestDB.updateBooking(SelectedJob);
+
+            if (rowsAffected != 0)
+            {
+                MessageBox.Show("booking updated!");
+            }
+            else
+            {
+                MessageBox.Show("update failed!");
+            }
+
+        }
 
         public void AssignBooking(int bookingId, int clientId, int contractorId)
         {

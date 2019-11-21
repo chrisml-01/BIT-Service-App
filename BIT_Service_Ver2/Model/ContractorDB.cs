@@ -55,11 +55,11 @@ namespace BIT_Service_Ver2.Model
         {
             int rowsaffected;
 
-            string query = "INSERT INTO contractor (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email)" +
-               " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email)";
+            string query = "INSERT INTO contractor (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password)" +
+               " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email, @username, @password)";
 
             Contractor Addcontractor = new Contractor();
-            MySqlParameter[] param = new MySqlParameter[9];
+            MySqlParameter[] param = new MySqlParameter[11];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = contractor.FirstName;
             param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
@@ -78,6 +78,10 @@ namespace BIT_Service_Ver2.Model
             param[7].Value = contractor.MobileNum;
             param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
             param[8].Value = contractor.Email;
+            param[9] = new MySqlParameter("@username", MySqlDbType.VarChar);
+            param[9].Value = contractor.Username;
+            param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
+            param[10].Value = contractor.Password;
 
             rowsaffected = _DB.NonQuerySql(query, param);
 
@@ -89,10 +93,10 @@ namespace BIT_Service_Ver2.Model
             int rowsAffected;
 
             string query = "UPDATE CONTRACTOR SET FirstName = @firstName, SurName = @surName, DOB = @dob, Street = @street, " +
-                "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber WHERE ContractorId = @contractorId";
+                "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber, Username = @username, Password = @password WHERE ContractorId = @contractorId";
 
             Contractor Addcontractor = new Contractor();
-            MySqlParameter[] param = new MySqlParameter[10];
+            MySqlParameter[] param = new MySqlParameter[12];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = contractor.FirstName;
             param[1] = new MySqlParameter("@surName", MySqlDbType.VarChar);
@@ -111,8 +115,12 @@ namespace BIT_Service_Ver2.Model
             param[7].Value = contractor.MobileNum;
             param[8] = new MySqlParameter("@email", MySqlDbType.VarChar);
             param[8].Value = contractor.Email;
-            param[9] = new MySqlParameter("@contractorId", MySqlDbType.VarChar);
-            param[9].Value = contractor.contractorID;
+            param[9] = new MySqlParameter("@username", MySqlDbType.VarChar);
+            param[9].Value = contractor.Username;
+            param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
+            param[10].Value = contractor.Password;
+            param[11] = new MySqlParameter("@contractorId", MySqlDbType.VarChar);
+            param[11].Value = contractor.contractorID;
 
             rowsAffected = _DB.NonQuerySql(query, param);
 
