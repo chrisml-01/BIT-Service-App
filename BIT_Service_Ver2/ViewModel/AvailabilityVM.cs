@@ -11,62 +11,39 @@ namespace BIT_Service_Ver2.ViewModel
 {
     class AvailabilityVM : NotifyClass
     {
-        private ObservableCollection<Availability> _contractors = new ObservableCollection<Availability>();
+        private ObservableCollection<Availability> _contractorAvail = new ObservableCollection<Availability>();
         private ObservableCollection<ContractorSkills> _contractorSkills = new ObservableCollection<ContractorSkills>();
         private ObservableCollection<PreferredLocation> _contractorLocation = new ObservableCollection<PreferredLocation>();
+        private ObservableCollection<Contractor> _contractors = new ObservableCollection<Contractor>();
         private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
         private ObservableCollection<Days> _days = new ObservableCollection<Days>();
-        private Availability _selectedContractor;
+        private Contractor _selectedContractor;
         private ContractorSkills _selectedSkill;
         private PreferredLocation _selectedLocation;
         //private int rowsAffected;
-        public ObservableCollection<Availability> Contractors
+        public ObservableCollection<Contractor> Contractors
         {
             get { return _contractors; }
             set { _contractors = value; }
         }
-        public ObservableCollection<Days> Days
-        {
-            get { return _days; }
-            set { _days = value; }
-        }
-        public ObservableCollection<PreferredLocation> ContractorLocation
-        {
-            get { return _contractorLocation; }
-            set { _contractorLocation = value; }
-        }
-        public ObservableCollection<ContractorSkills> ContractorSkill
-        {
-            get { return _contractorSkills; }
-            set { _contractorSkills = value; }
-        }
-        public Availability SelectedAvail
+        public Contractor SelectedContractor
         {
             get { return _selectedContractor; }
             set
             {
                 _selectedContractor = value;
-                OnPropertyChanged("SelectedAvail");
+                OnPropertyChanged("SelectedContractor");
             }
         }
-        public ContractorSkills SelectedSkill
+
+        public ObservableCollection<Days> Days
         {
-            get { return _selectedSkill; }
-            set
-            {
-                _selectedSkill = value;
-                OnPropertyChanged("SelectedSkill");
-            }
+            get { return _days; }
+            set { _days = value; }
         }
-        public PreferredLocation SelectedLocation
-        {
-            get { return _selectedLocation; }
-            set
-            {
-                _selectedLocation = value;
-                OnPropertyChanged("SelectedLocation");
-            }
-        }
+
+
+       
         public ObservableCollection<Skill> Skills
         {
             get { return _skill; }
@@ -75,22 +52,11 @@ namespace BIT_Service_Ver2.ViewModel
 
         public AvailabilityVM()
         {
-            var temp = AvailabilityDB.GetAllAvailability();
-            foreach (var item in temp)
+
+            var contractors = ContractorDB.GetAllContractors();
+            foreach (var item in contractors)
             {
                 Contractors.Add(item);
-            }
-
-            var con_skills = AvailabilityDB.GetAllContractorSkills();
-            foreach (var item in con_skills)
-            {
-                ContractorSkill.Add(item);
-            }
-
-            var con_location = AvailabilityDB.GetAllPreferredLocation();
-            foreach (var item in con_location)
-            {
-                ContractorLocation.Add(item);
             }
 
             var skills = SkillDB.GetAllSkills();
@@ -106,5 +72,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
 
         }
+
+       
     }
 }

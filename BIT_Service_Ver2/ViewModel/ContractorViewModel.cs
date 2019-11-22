@@ -52,30 +52,80 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void InsertContractor()
         {
-            rowsAffected = ContractorDB.insertContractor(SelectedContractor);
+            if (ValidateUser(SelectedContractor) == 0)
+            {
 
-            if (rowsAffected != 0)
-            {
-                MessageBox.Show("contractor added!");
             }
-            else
+            else if (ValidateUser(SelectedContractor) == 1)
             {
-                MessageBox.Show("insert failed!");
+                rowsAffected = ContractorDB.insertContractor(SelectedContractor);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("contractor added!");
+                }
+                else
+                {
+                    MessageBox.Show("insert failed!");
+                }
             }
         }
 
         private void UpdateContractor()
         {
-            rowsAffected = ContractorDB.updateContractor(SelectedContractor);
-
-            if (rowsAffected != 0)
+            if (ValidateUser(SelectedContractor) == 0)
             {
-                MessageBox.Show("contractor updated!");
+
+            }
+            else if (ValidateUser(SelectedContractor) == 1)
+            {
+                rowsAffected = ContractorDB.updateContractor(SelectedContractor);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("contractor updated!");
+                }
+                else
+                {
+                    MessageBox.Show("insert failed!");
+                }
+            }
+        }
+
+        private static int ValidateUser(Contractor contractor)
+        {
+            int result = 0;
+
+            if (contractor.FirstName == contractor.SurName)
+            {
+                MessageBox.Show("First name and surname can't be similar. Please try again.");
+                result = 0;
+            }
+            else if (contractor.DOB >= DateTime.Now)
+            {
+                MessageBox.Show("Date of birth should not be the date today or the future.");
+                result = 0;
+            }
+            else if (contractor.MobileNum.Length > 11)
+            {
+                MessageBox.Show("Please make sure that your phone number is correct.");
+            }
+            else if (contractor.FirstName.Length > 180 && contractor.SurName.Length > 180 && contractor.Street.Length > 180 && contractor.Suburb.Length > 180 && contractor.Username.Length > 180 && contractor.Password.Length > 180)
+            {
+                MessageBox.Show("Please make sure that your input doesn't exceed 180 characters.");
+                result = 0;
+            }
+            else if (contractor.Postcode.Length > 4)
+            {
+                MessageBox.Show("Please make sure that your postcode doesn't exceed 4 characters.");
+                result = 0;
             }
             else
             {
-                MessageBox.Show("insert failed!");
+                result = 1;
             }
+
+            return result;
         }
 
     }

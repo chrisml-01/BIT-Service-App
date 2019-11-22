@@ -54,31 +54,80 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void InsertCoord()
         {
-            rowsAffected = CoordinatorDB.insertCoordinator(SelectedCoordinator);
+            if (ValidateUser(SelectedCoordinator) == 0)
+            {
 
-            if (rowsAffected != 0)
-            {
-                MessageBox.Show("Coordinator added!");
             }
-            else
+            else if (ValidateUser(SelectedCoordinator) == 1)
             {
-                MessageBox.Show("insert failed!");
+                rowsAffected = CoordinatorDB.insertCoordinator(SelectedCoordinator);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("Coordinator added!");
+                }
+                else
+                {
+                    MessageBox.Show("insert failed!");
+                }
             }
         }
 
         private void UpdateCoord()
         {
-            rowsAffected = CoordinatorDB.updateCoordinator(SelectedCoordinator);
-
-            if (rowsAffected != 0)
+            if (ValidateUser(SelectedCoordinator) == 0)
             {
-                MessageBox.Show("Coordinator updated!");
+
+            }
+            else if (ValidateUser(SelectedCoordinator) == 1) {
+                
+                    rowsAffected = CoordinatorDB.updateCoordinator(SelectedCoordinator);
+
+                    if (rowsAffected != 0)
+                    {
+                        MessageBox.Show("Coordinator updated!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("insert failed!");
+                    }
+                }
+        }
+
+        private static int ValidateUser(Coordinator coordinator)
+        {
+            int result = 0;
+
+            if (coordinator.FirstName == coordinator.SurName)
+            {
+                MessageBox.Show("First name and surname can't be similar. Please try again.");
+                result = 0;
+            }
+            else if (coordinator.DOB >= DateTime.Now)
+            {
+                MessageBox.Show("Date of birth should not be the date today or the future.");
+                result = 0;
+            }
+            else if (coordinator.MobileNum.Length > 11)
+            {
+                MessageBox.Show("Please make sure that your phone number is correct.");
+            }
+            else if (coordinator.FirstName.Length > 180 && coordinator.SurName.Length > 180 && coordinator.Street.Length > 180 && coordinator.Suburb.Length > 180 && coordinator.Username.Length > 180 && coordinator.Password.Length > 180)
+            {
+                MessageBox.Show("Please make sure that your input doesn't exceed 180 characters.");
+                result = 0;
+            }
+            else if (coordinator.Postcode.Length > 4)
+            {
+                MessageBox.Show("Please make sure that your postcode doesn't exceed 4 characters.");
+                result = 0;
             }
             else
             {
-                MessageBox.Show("insert failed!");
+                result = 1;
             }
-        }
 
+            return result;
+        }
     }
 }

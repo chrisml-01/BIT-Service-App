@@ -29,17 +29,7 @@
                 <Grid Grid.Column="0">
                     <Label Content="All Contractor Availability:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="25" Width="163" Margin="10,6,0,0"/>
                     <DataGrid x:Name="dgContractorAvail" HorizontalAlignment="Left" Height="226" VerticalAlignment="Top" Width="256"
-                          ItemsSource="{Binding Contractors}" SelectedItem="{Binding SelectedAvail, Mode=TwoWay}" IsReadOnly="True" Margin="10,31,0,0"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Label Content="All Contractor Skills:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="25" Width="163" Margin="10,6,0,0"/>
-                    <DataGrid x:Name="dgContractorSkill" HorizontalAlignment="Left" Height="225" VerticalAlignment="Top" Width="256"
-                          ItemsSource="{Binding ContractorSkill}" SelectedItem="{Binding SelectedSkill, Mode=TwoWay}" IsReadOnly="True" Margin="10,31,0,0"/>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Label Content="All Contractor Preferred Location:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="25" Width="188" Margin="10,6,0,0"/>
-                    <DataGrid x:Name="dgContractorLocation" HorizontalAlignment="Left" Height="224" VerticalAlignment="Top" Width="257"
-                          ItemsSource="{Binding ContractorLocation}" SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" IsReadOnly="True" Margin="10,31,0,0"/>
+                          ItemsSource="{Binding Contractors}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True" Margin="10,31,0,0" SelectionChanged="DgContractorAvail_SelectionChanged"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">
@@ -123,7 +113,11 @@
 
                     <Grid Grid.Column="0">
                         <GroupBox Header="Selected Contractor" HorizontalAlignment="Left" Height="58" Margin="17,5,0,0" VerticalAlignment="Top" Width="219">
-                            <TextBox HorizontalAlignment="Left" Height="24" Margin="5,4,0,0" TextWrapping="Wrap" Text="{Binding SelectedAvail.ContractorID}" VerticalAlignment="Top" Width="198"/>
+                            <ComboBox HorizontalAlignment="Left" Height="24" Margin="5,4,0,0" VerticalAlignment="Top" Width="198"
+                                         ItemsSource="{Binding Contractors}"
+                                         DisplayMemberPath="FirstName"
+                                         SelectedValuePath="contractorID"
+                                         SelectedValue="{Binding SelectedContractor.contractorID}"/>
                         </GroupBox>
                         <GroupBox Header="Skills" HorizontalAlignment="Left" Height="165" Margin="247,0,0,0" VerticalAlignment="Top" Width="174">
                             <ListView ItemsSource ="{Binding Skills}">

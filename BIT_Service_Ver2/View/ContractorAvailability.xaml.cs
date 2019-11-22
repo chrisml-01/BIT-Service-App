@@ -1,6 +1,8 @@
-﻿using BIT_Service_Ver2.ViewModel;
+﻿using BIT_Service_Ver2.Model;
+using BIT_Service_Ver2.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,11 @@ namespace BIT_Service_Ver2.View
         {
             InitializeComponent();
             DataContext = new AvailabilityVM();
+        }
+
+        private void DgContractorAvail_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }

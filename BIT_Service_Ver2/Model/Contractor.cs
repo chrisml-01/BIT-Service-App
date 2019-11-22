@@ -20,5 +20,8 @@ namespace BIT_Service_Ver2.Model
         public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
+        public Availability[] availabilities;
+        public ContractorSkills[] skills;
     }
 }
