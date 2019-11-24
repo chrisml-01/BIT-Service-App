@@ -31,6 +31,7 @@ namespace BIT_Service_Ver2.View
         private void DgContractorAvail_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
+
         }
     }
 }

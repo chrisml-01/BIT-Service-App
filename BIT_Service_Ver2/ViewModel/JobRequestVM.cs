@@ -135,26 +135,6 @@ namespace BIT_Service_Ver2.ViewModel
             }
 
         }
-        //public JobRequestVM(int index)
-        //{
-        //    var temp = JobRequestDB.GetAllJob(index);
-        //    foreach (var item in temp)
-        //    {
-        //        JobRequests.Add(item);
-        //    }
-        //}
-        //public JobRequestVM(string bookingId)
-        //{
-        //    var contractors = ContractorDB.GetAllBookingContractors(bookingId);
-        //    foreach (var item in contractors)
-        //    {
-        //        BookingContractors.Add(item);
-        //    }
-        //}
-
-
-
-
-
+ 
     }
 }

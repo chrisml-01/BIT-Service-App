@@ -52,7 +52,11 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void InsertContractor()
         {
-            if (ValidateUser(SelectedContractor) == 0)
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show("Please select the last row before inserting.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if(ValidateUser(SelectedContractor) == 0)
             {
 
             }
@@ -73,7 +77,11 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void UpdateContractor()
         {
-            if (ValidateUser(SelectedContractor) == 0)
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show("Please make sure that you've selected a contractor to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if(ValidateUser(SelectedContractor) == 0)
             {
 
             }

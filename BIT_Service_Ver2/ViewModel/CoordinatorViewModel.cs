@@ -54,7 +54,11 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void InsertCoord()
         {
-            if (ValidateUser(SelectedCoordinator) == 0)
+            if (SelectedCoordinator == null)
+            {
+                MessageBox.Show("Please select the last row before inserting.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (ValidateUser(SelectedCoordinator) == 0)
             {
 
             }
@@ -75,7 +79,11 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void UpdateCoord()
         {
-            if (ValidateUser(SelectedCoordinator) == 0)
+            if (SelectedCoordinator == null)
+            {
+                MessageBox.Show("Please make sure that you've selected a coordinator to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (ValidateUser(SelectedCoordinator) == 0)
             {
 
             }

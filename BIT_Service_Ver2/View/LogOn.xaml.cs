@@ -42,6 +42,7 @@ namespace BIT_Service_Ver2.View
                 this.Hide();
                 Window main = new CoordinatorMenu();
                 main.ShowDialog();
+                this.Close();
             }
             else if (result == 1)
             {
@@ -49,6 +50,7 @@ namespace BIT_Service_Ver2.View
                 this.Hide();
                 Window main = new MainWindow();
                 main.ShowDialog();
+                this.Close();
             }
             else
             {

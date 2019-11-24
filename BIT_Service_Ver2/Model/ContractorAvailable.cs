@@ -10,7 +10,7 @@ namespace BIT_Service_Ver2.Model
 {
     class ContractorAvailable : NotifyClass
     {
-        //public bool isChecked {get; set;}
+        public bool isChecked { get; set; }
         public int contractorId { get; set; }
         public string Firstname { get; set; }
         public string Surname { get; set; }

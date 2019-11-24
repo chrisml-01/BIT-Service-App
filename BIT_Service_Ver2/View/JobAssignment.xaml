@@ -148,7 +148,7 @@
                 <DataGrid Name="dgUnassigend" HorizontalAlignment="Left" Height="164" Grid.Row="1" VerticalAlignment="Top" Width="304"
                           ItemsSource="{Binding UnassignedJob}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGrid Name="dgavailableContractors" HorizontalAlignment="Left" Height="208" Grid.Row="3" VerticalAlignment="Top" Width="304"
-                          ItemsSource="{Binding ContractorsAvailable}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True">
+                          ItemsSource="{Binding ContractorsAvailable}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}">
                 </DataGrid>
             </Grid>
         </Grid>

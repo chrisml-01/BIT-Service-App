@@ -15,14 +15,14 @@ namespace BIT_Service_Ver2.Model
         private static SQLHelper _DB = new SQLHelper("bitconnString");
 
         //Get all Contractor Availability Details
-        public DataTable GetAllAvailability()
+        public static DataTable GetAllAvail()
         {
 
-            string strQuery = "SELECT contractor.ContractorId, availability.DayId, day.DayName, availability.SlotId, timeslot.StartTime, timeslot.EndTime " +
-                "FROM contractor, availability, timeslot, day " +
-                "WHERE contractor.ContractorId = availability.ContractorId " +
-                "AND availability.SlotId = timeslot.SlotId " +
+            string strQuery = "SELECT availability.DayId, day.DayName, availability.SlotId, timeslot.StartTime, timeslot.EndTime " +
+                "FROM availability, timeslot, day, contractor " +
+                "WHERE availability.SlotId = timeslot.SlotId " +
                 "AND availability.DayId = day.DayId " +
+                "AND availability.ContractorId = contractor.ContractorId " +
                 "AND contractor.ContractorId = @contractorId";
 
             Availability availability = new Availability();
@@ -30,7 +30,38 @@ namespace BIT_Service_Ver2.Model
             param[0] = new MySqlParameter("@contractorId", MySqlDbType.Int32);
             param[0].Value = availability.ContractorID;
 
-            return _DB.executeSQL(strQuery,param);
+            return _DB.executeSQL(strQuery, param);
+        }
+
+        public static ObservableCollection<Availability> GetAllAvailability(int contractorId)
+        {
+
+            string strQuery = "SELECT availability.DayId, day.DayName " +
+                "FROM availability, day, contractor " +
+                "WHERE availability.DayId = day.DayId " +
+                "AND availability.ContractorId = contractor.ContractorId " +
+                "AND contractor.ContractorId = " + contractorId;
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<Availability>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Availability availability = new Availability()
+                {
+                    DayId = Convert.ToInt32(dr[0]),
+                    dayName = dr[1].ToString(),
+                    SlotId = Convert.ToInt32(dr[2]),
+                    starT = dr[3].ToString(),
+                    endT = dr[4].ToString()
+                };
+                temp.Add(availability);
+            }
+            return temp;
+
+
         }
 
         public static ObservableCollection<ContractorSkills> GetAllContractorSkills()

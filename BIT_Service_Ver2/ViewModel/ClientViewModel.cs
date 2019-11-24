@@ -65,8 +65,12 @@ namespace BIT_Service_Ver2.ViewModel
 
 
         private void InsertClient()
-        {
-            if (ValidateUser(SelectedClient) == 0)
+        {   
+            if(SelectedClient == null)
+            {
+                MessageBox.Show("Please select the last row before inserting.","Information",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            else if (ValidateUser(SelectedClient) == 0)
             {
 
             }
@@ -92,7 +96,11 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void UpdateClient()
         {
-            if (ValidateUser(SelectedClient) == 0)
+            if(SelectedClient == null)
+            {
+                MessageBox.Show("Please make sure that you've selected a client to update.","Information",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            else if (ValidateUser(SelectedClient) == 0)
             {
                 
             }

@@ -89,9 +89,12 @@ namespace BIT_Service_Ver2.View
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            Window logOn = new LogOn();
-            logOn.Show();
+            if (MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                this.Close();
+                Window logOn = new LogOn();
+                logOn.Show();
+            }
         }
 
         private void BtnJobApproval_Click(object sender, RoutedEventArgs e)

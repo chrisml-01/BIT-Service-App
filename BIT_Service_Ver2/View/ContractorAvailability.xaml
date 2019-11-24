@@ -53,7 +53,9 @@
                                     <ListView ItemsSource="{Binding Days}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <CheckBox Content="{Binding dayName}"/>
+                                                <CheckBox Content="{Binding dayName}"
+                                                          IsChecked="{Binding RelativeSource={RelativeSource FindAncestor,
+                                                    AncestorType={x:Type ListViewItem}}, Path=IsSelected}"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>

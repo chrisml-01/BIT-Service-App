@@ -77,12 +77,18 @@ namespace BIT_Service_Ver2.View
             int clientId = int.Parse(txtClientId.Text);
 
             int rowsAffected = 0;
-            
-          foreach(var items in dgavailableContractors.SelectedItems)
+
+          
+          foreach(var items in dgavailableContractors.ItemsSource)
             {
                 ContractorAvailable contractor = items as ContractorAvailable;
 
-                rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractor.contractorId);
+                if(contractor.isChecked == true){
+
+                    rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractor.contractorId);
+                }
+                
+   
             }
 
             if (rowsAffected != 0)

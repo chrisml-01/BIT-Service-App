@@ -47,6 +47,7 @@
                 <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Left" Margin="0,280,0,0" VerticalAlignment="Top" Width="180" Height="32" Grid.Row="4" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI Semibold" Foreground="White" Background="#FF22343C" BorderThickness="0" Click="btnLogout_Click"/>
             </Grid>
             <Grid Grid.Column="1">
+                <Image Source="Image/mainImg.png" Margin="198,136,8,0" />
                 <Frame Name="Main" NavigationUIVisibility="Hidden" Grid.Column="1"/>
             </Grid>
         </Grid>
