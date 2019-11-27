@@ -73,33 +73,39 @@ namespace BIT_Service_Ver2.View
 
         private void BtnAssign_Click(object sender, RoutedEventArgs e)
         {
-            int bookingId = int.Parse(txtBookingId.Text);
-            int clientId = int.Parse(txtClientId.Text);
 
             int rowsAffected = 0;
 
-          
-          foreach(var items in dgavailableContractors.ItemsSource)
+            if (txtBookingId.Text == "" && txtClientId.Text == "")
             {
-                ContractorAvailable contractor = items as ContractorAvailable;
-
-                if(contractor.isChecked == true){
-
-                    rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractor.contractorId);
-                }
-                
-   
-            }
-
-            if (rowsAffected != 0)
-            {
-                MessageBox.Show("Job successfully assigned!");
+                MessageBox.Show("Assign Failed! Please make sure that you've selected contractor(s) to assign.");
             }
             else
             {
-                MessageBox.Show("Assign Failed! Please make sure that you've selected contractor(s).");
-            }
+                int bookingId = int.Parse(txtBookingId.Text);
+                int clientId = int.Parse(txtClientId.Text);
 
+                foreach (var items in dgavailableContractors.ItemsSource)
+                {
+                    ContractorAvailable contractor = items as ContractorAvailable;
+
+                    if (contractor.isChecked == true)
+                    {
+
+                        rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractor.contractorId);
+                    }
+
+                }
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("Job successfully assigned!");
+                }
+                else
+                {
+                    MessageBox.Show("Assign Failed! Please make sure that you've selected contractor(s) to assign.");
+                }
+            }
         }
     }
 }

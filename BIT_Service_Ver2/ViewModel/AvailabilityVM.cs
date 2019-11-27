@@ -7,6 +7,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace BIT_Service_Ver2.ViewModel
 {
@@ -15,14 +17,22 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<Availability> _contractorAvail = new ObservableCollection<Availability>();
         private ObservableCollection<ContractorSkills> _contractorSkills = new ObservableCollection<ContractorSkills>();
         private ObservableCollection<PreferredLocation> _contractorLocation = new ObservableCollection<PreferredLocation>();
+        private ObservableCollection<TimeSlot> _timeSlot = new ObservableCollection<TimeSlot>();
         private ObservableCollection<Contractor> _contractors = new ObservableCollection<Contractor>();
         private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
         private ObservableCollection<Days> _days = new ObservableCollection<Days>();
         private Contractor _selectedContractor;
-        private ContractorSkills _selectedSkill;
-        private PreferredLocation _selectedLocation;
-        private Days _selectedDays;
-        //private int rowsAffected;
+        private int rowsAffected;
+        private int tab;
+        private int _selectedIndex;
+        public int SelectedIndex
+        {
+            get { return _selectedIndex; }
+            set {
+                _selectedIndex = value;
+                OnPropertyChanged("SelectedIndex");
+            }
+        }
         public ObservableCollection<Contractor> Contractors
         {
             get { return _contractors; }
@@ -34,14 +44,11 @@ namespace BIT_Service_Ver2.ViewModel
             set
             {
                 _selectedContractor = value;
-                OnPropertyChanged("SelectedContractor");
-            }
-        }
+                checkSkills();
+                getAvail();
+                OnPropertyChanged("SelectedContractor");               
 
-        public Days SelectedDays
-        {
-            get { return _selectedDays; }
-            set { _selectedDays = value; }
+            }
         }
 
         public ObservableCollection<Days> Days
@@ -49,11 +56,56 @@ namespace BIT_Service_Ver2.ViewModel
             get { return _days; }
             set { _days = value; }
         }
-       
-        public ObservableCollection<Skill> Skills
+
+        public ObservableCollection<Skill> Skill
         {
             get { return _skill; }
             set { _skill = value; }
+        }
+
+        public ObservableCollection<TimeSlot> TimeSlots
+        {
+            get { return _timeSlot; }
+            set { _timeSlot = value; }
+        }
+
+        public ObservableCollection<Skill> Skills
+        {
+
+            get
+            {
+                if (_selectedContractor != null)
+                {
+                    _selectedContractor.skills = SkillDB.GetAllSkills();
+                    return _selectedContractor.skills;
+                }
+                return null;
+            }
+            set
+            {
+                _selectedContractor.skills = value;
+                _selectedContractor.skills = SkillDB.GetAllSkills();
+                OnPropertyChanged("SelectedContractor");
+            }
+        }
+
+        public ObservableCollection<Days> Availabilities
+        {
+            get
+            {
+                if(_selectedContractor != null)
+                {
+                    _selectedContractor.availabilities = AvailabilityDB.GetAllDays();
+                    return _selectedContractor.availabilities;
+                }
+                return null;
+            }
+            set
+            {
+                _selectedContractor.availabilities = value;
+                _selectedContractor.availabilities = AvailabilityDB.GetAllDays();
+                OnPropertyChanged("SelectedContractor");
+            }
         }
 
         public AvailabilityVM()
@@ -65,54 +117,176 @@ namespace BIT_Service_Ver2.ViewModel
                 Contractors.Add(item);
             }
 
-            var skills = SkillDB.GetAllSkills();
-            foreach (var item in skills)
-            {
-                Skills.Add(item);
-            }
-
             var days = AvailabilityDB.GetAllDays();
             foreach (var item in days)
             {
                 Days.Add(item);
             }
 
-           
-            //getAvailability(SelectedContractor);
-            //getAvail(SelectedContractor);
+            var skills = SkillDB.GetAllSkills();
+            foreach(var item in skills)
+            {
+                Skill.Add(item);
+            }
+
+            var time = AvailabilityDB.GetAllTime();
+            foreach (var item in time)
+            {
+                TimeSlots.Add(item);
+            }
+
         }
 
-        public Availability[] getAvail(Contractor c)
+        public void getAvail()
         {
 
-            DataTable availDays = new DataTable();
-            var avail = AvailabilityDB.GetAllAvailability(c.contractorID);
-
-            c.availabilities = new Availability[availDays.Rows.Count];
-            int arrayCount = 0;
-            foreach(DataRow dr in availDays.Rows)
-            {                
-                arrayCount++;
-            }
-            return c.availabilities;
-
-            
+            foreach(Days contractors in Days)
+            {
+                contractors.isChecked = false;
+                foreach(Days avail in AvailabilityDB.GetAllAvailability(SelectedContractor))
+                {
+                    if (avail.dayId == contractors.dayId)
+                    {
+                        contractors.isChecked = true;
+                    }
+                }
+            }          
         }
 
-        //public void getAvailability(Contractor contractor)
-        //{
-        //    DataTable availDays = AvailabilityDB.GetAllAvailability();
-        //    //ObservableCollection<Days> days = AvailabilityDB.GetAllDays();
-        //    foreach (var drv in Days)
-        //    {
-        //        foreach (DataRow row in availDays.Rows)
-        //        {
-        //            if (drv.dayId.ToString() == row[0].ToString())
-        //            {
-        //                Days.Add(drv);
-        //            }
-        //        }
-        //    }
-        //}
+        public void checkSkills()
+        {
+            foreach(Skill contractors in Skill)
+            {
+                contractors.isChecked = false;
+                foreach(Skill skill in AvailabilityDB.GetAllContractorSkills(SelectedContractor))
+                {
+                    
+                    if (skill.skillID == contractors.skillID)
+                    {
+                        contractors.isChecked = true;
+                    }
+                }
+            }
+        }
+
+        public RelayCommand AddDays
+        {
+            get { return new RelayCommand(insertDays, true); }
+        }
+
+        public RelayCommand AddSkills
+        {
+            get { return new RelayCommand(insertSkill, true); }
+        }
+
+        public RelayCommand UpdateDays
+        {
+            get { return new RelayCommand(updateDays, true); }
+        }
+
+        public RelayCommand UpdateSkills
+        {
+            get { return new RelayCommand(updateSkill, true); }
+        }
+
+        private void insertSkill()
+        {          
+            foreach(Skill s in Skill)
+            {                   
+                if(s.isChecked == true)
+                {
+                   rowsAffected = AvailabilityDB.insertSkills(SelectedContractor.contractorID, s.skillID);
+                }                   
+            }
+           
+            if (rowsAffected != 0)
+            {
+                MessageBox.Show("Contractor skill added!");
+            }
+            else
+            {
+                MessageBox.Show("insert failed!");
+            }
+        }
+
+        private void updateSkill()
+        {
+            if (SelectedContractor == null)
+            {
+                MessageBox.Show("Please make sure that you've selected a contractor to update");
+            }
+            else
+            {
+                int delete = AvailabilityDB.deleteSkills(SelectedContractor.contractorID);
+
+                foreach (Skill s in Skill)
+                {
+                    if (s.isChecked == true)
+                    {
+                        rowsAffected = AvailabilityDB.insertSkills(SelectedContractor.contractorID, s.skillID);
+                    }
+
+                }
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("Contractor skill updated!");
+                }
+                else
+                {
+                    MessageBox.Show("update failed!");
+                }
+            }
+        }
+
+        private void insertDays()
+        {
+            foreach(Days d in Days)
+            {
+                if(d.isChecked == true)
+                {
+                    rowsAffected = AvailabilityDB.insertDays(SelectedContractor.contractorID, d.dayId);
+                }
+            }
+
+            if (rowsAffected != 0)
+            {
+                MessageBox.Show("Availability inserted!");
+            }
+            else
+            {
+                MessageBox.Show("insert failed!");
+            }
+        }
+
+        private void updateDays()
+        {
+            if(SelectedContractor == null)
+            {
+                MessageBox.Show("Please make sure that you've selected a contractor to update");
+            }
+            else
+            {
+                int delete = AvailabilityDB.deleteDays(SelectedContractor.contractorID);
+
+                foreach (Days d in Days)
+                {
+                    if (d.isChecked == true)
+                    {
+                        rowsAffected = AvailabilityDB.insertDays(SelectedContractor.contractorID, d.dayId);
+                    }
+
+                }
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("Contractor availability updated!");
+                }
+                else
+                {
+                    MessageBox.Show("update failed!");
+                }
+            }            
+        }
     }
 }

@@ -143,7 +143,7 @@
                     <RowDefinition Height="22"/>
                     <RowDefinition Height="258*"/>
                 </Grid.RowDefinitions>
-                <Label Content="All Unassigned Job Requests:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="25" Width="163" Margin="0,8,0,0"/>
+                <Label Content="All Unassigned Job Requests: (Sorted by start date)" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="25" Width="278" Margin="0,8,0,0"/>
                 <Label Content="All Available Contractors:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="142" Grid.RowSpan="3" Margin="0,166,0,0"/>
                 <DataGrid Name="dgUnassigend" HorizontalAlignment="Left" Height="164" Grid.Row="1" VerticalAlignment="Top" Width="304"
                           ItemsSource="{Binding UnassignedJob}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" IsReadOnly="True"/>

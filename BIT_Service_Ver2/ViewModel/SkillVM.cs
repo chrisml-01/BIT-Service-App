@@ -53,29 +53,43 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void insertSkill()
         {
-            rowsAffected = SkillDB.insertSkill(SelectedSkill);
-
-            if (rowsAffected != 0)
+            if (SelectedSkill == null)
             {
-                MessageBox.Show("skill added!");
+                MessageBox.Show("Please select the last row before inserting.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("insert failed!");
+                rowsAffected = SkillDB.insertSkill(SelectedSkill);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("skill added!");
+                }
+                else
+                {
+                    MessageBox.Show("insert failed!");
+                }
             }
         }
 
         private void updateSkill()
         {
-            rowsAffected = SkillDB.updateSkill(SelectedSkill);
-
-            if (rowsAffected != 0)
+            if (SelectedSkill == null)
             {
-                MessageBox.Show("skill updated!");
+                MessageBox.Show("Please make sure that you've selected a skill to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("update failed!");
+                rowsAffected = SkillDB.updateSkill(SelectedSkill);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("skill updated!");
+                }
+                else
+                {
+                    MessageBox.Show("update failed!");
+                }
             }
         }
     }

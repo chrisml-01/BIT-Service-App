@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,7 @@ namespace BIT_Service_Ver2.Model
         public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-
-        public Availability[] availabilities;
-        public ContractorSkills[] skills;
+        public ObservableCollection<Days> availabilities;
+        public ObservableCollection<Skill> skills;
     }
 }

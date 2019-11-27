@@ -7,6 +7,7 @@
         xmlns:mycontrols="clr-namespace:BIT_Service_Ver2.UserControls"
         mc:Ignorable="d"
         Title="ContractorAvailability" Width="834.615" Height="551" ResizeMode="NoResize">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -16,149 +17,171 @@
             <Label Content="Contractor Availability" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
         </Grid>
         <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="131*"/>
-                <RowDefinition Height="110*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Label Content="All Contractor Availability:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="25" Width="163" Margin="10,6,0,0"/>
-                    <DataGrid x:Name="dgContractorAvail" HorizontalAlignment="Left" Height="226" VerticalAlignment="Top" Width="256"
-                          ItemsSource="{Binding Contractors}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True" Margin="10,31,0,0" SelectionChanged="DgContractorAvail_SelectionChanged"/>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="17*"/>
-                    <RowDefinition Height="5*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="431*"/>
-                        <ColumnDefinition Width="398*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1">
-                        <GroupBox Header="Availability" HorizontalAlignment="Left" Height="166" Margin="10,0,0,0" VerticalAlignment="Top" Width="374">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="141*"/>
-                                    <ColumnDefinition Width="253*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <ListView ItemsSource="{Binding Days}">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <CheckBox Content="{Binding dayName}"
-                                                          IsChecked="{Binding RelativeSource={RelativeSource FindAncestor,
-                                                    AncestorType={x:Type ListViewItem}}, Path=IsSelected}"/>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                </Grid>
-                                <Grid Grid.Column="1">
+            <TabControl SelectedIndex="{Binding SelectedIndex}" HorizontalAlignment="Left" Height="482" VerticalAlignment="Top" Width="829">
+                <TabItem Header="Skills" Width="100" Background="#72a7c5" Height="30">
+                    <Grid Background="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <GroupBox Header="Selected Contractor" HorizontalAlignment="Left" Height="107" Margin="65,23,0,0" VerticalAlignment="Top" Width="308">
+                                <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="27"/>
+                                        <RowDefinition Height="27"/>
+                                        <RowDefinition Height="27"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="24*"/>
-                                        <ColumnDefinition Width="93*"/>
-                                        <ColumnDefinition Width="21*"/>
-                                        <ColumnDefinition Width="104*"/>
+                                        <ColumnDefinition Width="98"/>
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
+                                    <Label Content="ContractorID:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="17,2,0,0" Grid.Row="0" Height="26" Width="81"/>
+                                    <Label Content="First Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="28,1,0,0" Grid.Row="1" Height="25" Width="70"/>
+                                    <Label Content="Last Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="29,1,0,0" Grid.Row="2" Height="26" Width="69"/>
+                                    <TextBox x:Name="txtID" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                             VerticalAlignment="Top" Width="183" Grid.Row="0" FontSize="12" Text="{Binding SelectedContractor.contractorID}" IsReadOnly="True"/>
+                                    <TextBox x:Name="txtFN" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                             VerticalAlignment="Top" Width="183" Grid.Row="1" FontSize="12" Text="{Binding SelectedContractor.FirstName}" IsReadOnly="True"/>
+                                    <TextBox x:Name="txtLN" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                             VerticalAlignment="Top" Width="183" Grid.Row="2" FontSize="12" Text="{Binding SelectedContractor.SurName}" IsReadOnly="True"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Skills" HorizontalAlignment="Left" Height="250" Margin="65,135,0,0" VerticalAlignment="Top" Width="308">
+                                <ListView ItemsSource ="{Binding Skill}" SelectionMode="Multiple">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding skillName}"
+                                                  IsChecked="{Binding isChecked, Mode=TwoWay}"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </GroupBox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="383"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                 <DataGrid x:Name="dgContractorSkills" HorizontalAlignment="Left" Height="351" VerticalAlignment="Top" Width="373"
+                          ItemsSource="{Binding Contractors}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True" Margin="10,25,0,0"/>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="0" Command="{Binding AddSkills}"/>
+                                <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="7,8,0,0" VerticalAlignment="Top" Width="74" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="1"/>
+                                <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="2" Command="{Binding UpdateSkills}"/>
+                                <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="5,7,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="Black" BorderThickness="1" Grid.Column="3" IsEnabled="False"/>
+                            </Grid>
+                         
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Availability" Width="100" Background="#72a7c5">
+                    <Grid Background="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <GroupBox Header="Selected Contractor" HorizontalAlignment="Left" Height="179" Margin="51,27,0,0" VerticalAlignment="Top" Width="192">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="27"/>
+                                        <RowDefinition Height="27"/>
+                                        <RowDefinition Height="27"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="74"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="ContractorID:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="-6,2,0,0" Grid.Row="0" Height="26" Width="81" Grid.ColumnSpan="2"/>
+                                    <Label Content="First Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="5,1,0,0" Grid.Row="1" Height="25" Width="70" Grid.ColumnSpan="2"/>
+                                    <Label Content="Last Name:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="6,1,0,0" Grid.Row="2" Height="26" Width="69" Grid.ColumnSpan="2"/>
+                                    <TextBox x:Name="txtConID" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                             VerticalAlignment="Top" Width="96" Grid.Row="0" FontSize="12" Text="{Binding SelectedContractor.contractorID}"/>
+                                    <TextBox x:Name="txtConFN" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                             VerticalAlignment="Top" Width="96" Grid.Row="1" FontSize="12" Text="{Binding SelectedContractor.FirstName}"/>
+                                    <TextBox x:Name="txtConLN" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
+                             VerticalAlignment="Top" Width="96" Grid.Row="2" FontSize="12" Text="{Binding SelectedContractor.SurName}"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Availability" HorizontalAlignment="Left" Height="179" Margin="248,27,0,0" VerticalAlignment="Top" Width="154">
+                                <ListView ItemsSource="{Binding Days}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding dayName}"
+                                                          IsChecked="{Binding isChecked, Mode=TwoWay}"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </GroupBox>
 
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="0" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="1" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="2" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="3" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="4" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="5" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="6" Grid.ColumnSpan="2"/>
+                            <GroupBox Header="TimeSlot" HorizontalAlignment="Left" Height="75" Margin="51,211,0,0" VerticalAlignment="Top" Width="351">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <ListView ItemsSource="{Binding TimeSlots}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox Content="{Binding startTime}"
+                                                          IsChecked="{Binding isChecked, Mode=TwoWay}"/>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <ListView ItemsSource="{Binding TimeSlots}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox Content="{Binding endTime}"
+                                                          IsChecked="{Binding isChecked, Mode=TwoWay}"/>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Grid>
+                                </Grid>
 
-                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,-5,0,0" Grid.Row="0" Content="8 AM - 12 NN"/>
-                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,16,0,0" Content="8 AM - 12 NN" Grid.RowSpan="3"/>
-                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,15,0,0" Grid.Row="1" Content="8 AM - 12 NN" Grid.RowSpan="2"/>
-                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,16,0,0" Grid.Row="2" Content="8 AM - 12 NN" Grid.RowSpan="2"/>
-                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,15,0,0" Grid.Row="3" Content="8 AM - 12 NN" Grid.RowSpan="2"/>
-                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,16,0,0" Grid.Row="4" Content="8 AM - 12 NN" Grid.RowSpan="3"/>
-                                    <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,15,0,0" Grid.Row="5" Content="8 AM - 12 NN" Grid.RowSpan="2"/>
+                            </GroupBox>
 
-                                    <CheckBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="0" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="1" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="2" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="3" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="4" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="5" Grid.ColumnSpan="2"/>
-                                    <CheckBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="16" Margin="3,1,0,0" Grid.Row="6" Grid.ColumnSpan="2"/>
-
-                                    <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,-5,0,0" Grid.Row="0" Content="1 PM - 5 PM"/>
-                                    <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,16,0,0" Content="1 PM - 5 PM" Grid.RowSpan="3"/>
-                                    <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,15,0,0" Grid.Row="1" Content="1 PM - 5 PM" Grid.RowSpan="2"/>
-                                    <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,16,0,0" Grid.Row="2" Content="1 PM - 5 PM" Grid.RowSpan="2"/>
-                                    <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,15,0,0" Grid.Row="3" Content="1 PM - 5 PM" Grid.RowSpan="2"/>
-                                    <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,16,0,0" Grid.Row="4" Content="1 PM - 5 PM" Grid.RowSpan="3"/>
-                                    <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="26" Margin="0,15,0,0" Grid.Row="5" Content="1 PM - 5 PM" Grid.RowSpan="2"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="383"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <DataGrid x:Name="dgContractorAvail" HorizontalAlignment="Left" Height="351" VerticalAlignment="Top" Width="373"
+                          ItemsSource="{Binding Contractors}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" IsReadOnly="True" Margin="10,25,0,0"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="btnAdd1" Content="Add" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="0" Command="{Binding AddDays}"/>
+                                    <Button x:Name="btnSave1" Content="Save" HorizontalAlignment="Left" Margin="7,8,0,0" VerticalAlignment="Top" Width="74" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="1"/>
+                                    <Button x:Name="btnUpdate1" Content="Update" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="2" Command="{Binding UpdateDays}"/>
+                                    <Button x:Name="btnDelete1" Content="Delete" HorizontalAlignment="Left" Margin="5,7,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="Black" BorderThickness="1" Grid.Column="3" IsEnabled="False"/>
                                 </Grid>
                             </Grid>
-                        </GroupBox>
+                        </Grid>
                     </Grid>
+                </TabItem>
+            </TabControl>
 
-                    <Grid Grid.Column="0">
-                        <GroupBox Header="Selected Contractor" HorizontalAlignment="Left" Height="58" Margin="17,5,0,0" VerticalAlignment="Top" Width="219">
-                            <ComboBox HorizontalAlignment="Left" Height="24" Margin="5,4,0,0" VerticalAlignment="Top" Width="198"
-                                         ItemsSource="{Binding Contractors}"
-                                         DisplayMemberPath="FirstName"
-                                         SelectedValuePath="contractorID"
-                                         SelectedValue="{Binding SelectedContractor.contractorID}"/>
-                        </GroupBox>
-                        <GroupBox Header="Skills" HorizontalAlignment="Left" Height="165" Margin="247,0,0,0" VerticalAlignment="Top" Width="174">
-                            <ListView ItemsSource ="{Binding Skills}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Content="{Binding skillName}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </GroupBox>
-
-                        <GroupBox Header="Preferred Location" HorizontalAlignment="Left" Height="97" VerticalAlignment="Top" Width="219" Margin="17,68,0,0">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="5"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="51*"/>
-                                    <ColumnDefinition Width="97*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Content="Location 1:" HorizontalAlignment="Left" Margin="3,2,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="66" />
-                                <Label Content="Location 2:" HorizontalAlignment="Left" Margin="3,0,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="71"/>
-                                <TextBox x:Name="txtSuburb1" Grid.Column="1" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="131" Grid.Row="1" Height="22" />
-                                <TextBox x:Name="txtSuburb2" Grid.Column="1" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="131" Grid.Row="2" Height="22"/>
-                            </Grid>
-                        </GroupBox>
-
-                    </Grid>
-                </Grid>
-
-                <Grid Grid.Row="1">
-                    <mycontrols:Buttons Margin="239,4,235,-24"></mycontrols:Buttons>
-                </Grid>
-            </Grid>
         </Grid>
-
-
     </Grid>
 </Window>

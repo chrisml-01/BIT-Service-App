@@ -53,32 +53,45 @@ namespace BIT_Service_Ver2.ViewModel
 
         private void ApproveBooking()
         {
-
-            rowsAffected = JobRequestDB.approveBooking(SelectedJob);
-
-            if (rowsAffected != 0)
+            if(SelectedJob == null)
             {
-                MessageBox.Show("booking approved!");
+                MessageBox.Show("Please make sure that you've selected a job to approve");
             }
             else
             {
-                MessageBox.Show("update failed!");
+                rowsAffected = JobRequestDB.approveBooking(SelectedJob);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("booking approved!");
+                }
+                else
+                {
+                    MessageBox.Show("update failed!");
+                }
             }
+           
 
         }
 
         private void DisapproveBooking()
         {
-
-            rowsAffected = JobRequestDB.disapproveBooking(SelectedJob);
-
-            if (rowsAffected != 0)
+            if (SelectedJob == null)
             {
-                MessageBox.Show("booking disapproved!");
+                MessageBox.Show("Please make sure that you've selected a job to approve");
             }
             else
             {
-                MessageBox.Show("update failed!");
+                rowsAffected = JobRequestDB.disapproveBooking(SelectedJob);
+
+                if (rowsAffected != 0)
+                {
+                    MessageBox.Show("booking disapproved!");
+                }
+                else
+                {
+                    MessageBox.Show("update failed!");
+                }
             }
 
         }

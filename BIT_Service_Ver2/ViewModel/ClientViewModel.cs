@@ -121,8 +121,7 @@ namespace BIT_Service_Ver2.ViewModel
             {
                 MessageBox.Show("Error");
             }
-           
-
+          
         }
 
         private static int ValidateUser(Client client)
