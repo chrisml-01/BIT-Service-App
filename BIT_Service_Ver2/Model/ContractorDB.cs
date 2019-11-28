@@ -129,34 +129,38 @@ namespace BIT_Service_Ver2.Model
 
         }
 
-        //public static ObservableCollection<Contractor> GetAllBookingContractors(string bookingId)
-        //{
+        public static ObservableCollection<Contractor> SearchContractor(string firstname)
+        {
 
-        //    string strQuery = "SELECT contractor.ContractorId, contractor.FirstName, contractor.SurName " +
-        //        "FROM service_booking, booking_contractors, contractor " +
-        //        "WHERE service_booking.BookingId = booking_contractors.BookingId " +
-        //        "AND booking_contractors.ContractorId = contractor.ContractorId " +
-        //        "AND service_booking.BookingId = '" + bookingId + "'";
+            string strQuery = "SELECT * FROM contractor WHERE contractor.FirstName LIKE '%" + firstname + "%'";
+            
 
-        //    DataTable dt = new DataTable();
+            DataTable dt = new DataTable();
 
-        //    dt = _DB.executeSQL(strQuery);
+            dt = _DB.executeSQL(strQuery);
 
-        //    var temp = new ObservableCollection<Contractor>();
-        //    foreach (DataRow dr in dt.Rows)
-        //    {
-        //        Contractor bookingContractor = new Contractor()
-        //        {
-        //            contractorID = Convert.ToInt32(dr[0]),
-        //            FirstName = dr[1].ToString(),
-        //            SurName = dr[2].ToString()
-        //        };
-        //        temp.Add(bookingContractor);
-        //    }
-        //    return temp;
-        //}
-
-
+            var temp = new ObservableCollection<Contractor>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Contractor contractor = new Contractor()
+                {
+                    contractorID = Convert.ToInt32(dr[0]),
+                    FirstName = dr[1].ToString(),
+                    SurName = dr[2].ToString(),
+                    DOB = (DateTime)dr[3],
+                    Street = dr[4].ToString(),
+                    Suburb = dr[5].ToString(),
+                    State = dr[6].ToString(),
+                    Postcode = dr[7].ToString(),
+                    MobileNum = dr[8].ToString(),
+                    Email = dr[9].ToString(),
+                    Username = dr[10].ToString(),
+                    Password = dr[11].ToString()
+                };
+                temp.Add(contractor);
+            }
+            return temp;
+        }
 
     }
 }

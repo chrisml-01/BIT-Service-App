@@ -42,6 +42,32 @@ namespace BIT_Service_Ver2.Model
             return temp;
         }
 
+        public static ObservableCollection<Skill> SearchSkills(string skillName)
+        {
+          
+            string strQuery = "SELECT * FROM skills WHERE skills.SkillName LIKE '%" + skillName + "%'";
+            
+
+            DataTable dt = new DataTable();
+            dt = _DB.executeSQL(strQuery);
+           
+
+            var temp = new ObservableCollection<Skill>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Skill skill = new Skill()
+                {
+                    skillID = Convert.ToInt32(dr[0]),
+                    skillName = dr[1].ToString(),
+                    description = dr[2].ToString(),
+                    charge = Convert.ToDouble(dr[3])
+
+                };
+                temp.Add(skill);
+            }
+            return temp;
+        }
+
         public static int insertSkill(Skill skill)
         {
             int rowsaffected;

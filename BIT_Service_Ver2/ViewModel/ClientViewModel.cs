@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace BIT_Service_Ver2.ViewModel
 {
@@ -21,6 +22,13 @@ namespace BIT_Service_Ver2.ViewModel
         private Client _selectedClient;
         private Client _newClient;
         private int rowsAffected;
+        private string _input;
+
+        public string Input
+        {
+            get { return _input; }
+            set { _input = value; }
+        }
         
        
         public ObservableCollection<Client> Clients
@@ -53,7 +61,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
-        public RelayCommand Add
+        public RelayCommand Save
         {
             get { return new RelayCommand(InsertClient, true); }
         }
@@ -63,6 +71,30 @@ namespace BIT_Service_Ver2.ViewModel
             get { return new RelayCommand(UpdateClient, true); }
         }
 
+        public RelayCommand Add
+        {
+            get { return new RelayCommand(AddClient, true); }
+        }
+
+        public RelayCommand Search
+        {
+            get { return new RelayCommand(SearchClient, true); }
+        }
+
+        private void AddClient()
+        {
+            int lastRow = Clients.Count;
+            Client client = new Client();
+
+            for (int i = 0; i <= lastRow; i++)
+            {
+                if (i == lastRow)
+                {
+                    Clients.Add(client);
+                }
+            }
+
+        }
 
         private void InsertClient()
         {   
@@ -122,6 +154,17 @@ namespace BIT_Service_Ver2.ViewModel
                 MessageBox.Show("Error");
             }
           
+        }
+
+        private void SearchClient()
+        {
+            Clients.Clear();
+            var temp = ClientDB.SearchClient(Input);
+            foreach (var item in temp)
+            {
+                Clients.Add(item);
+            }
+
         }
 
         private static int ValidateUser(Client client)

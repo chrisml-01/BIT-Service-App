@@ -13,7 +13,6 @@ namespace BIT_Service_Ver2.Model
     class JobRequestDB
     {
         private static SQLHelper _DB = new SQLHelper("bitconnString");
-       
 
         public static ObservableCollection<JobRequest> GetAllJob()
         {
@@ -50,6 +49,48 @@ namespace BIT_Service_Ver2.Model
                     endTime = dr[13].ToString(),
                     contractorName = dr[14].ToString()
                    
+                };
+                temp.Add(job);
+            }
+            return temp;
+        }
+
+        public static ObservableCollection<JobRequest> SearchJob(string bookingId)
+        {
+            string strQuery = "SELECT booking.BookingId, booking.ClientId, booking.SkillId, skills.SkillName, BookingDate, preferredTime, booking.Street, booking.Suburb, booking.State, booking.PostCode, service_booking.Status, Notes, service_booking.StartTime, service_booking.EndTime , GROUP_CONCAT(contractor.FirstName,' ',contractor.SurName) as ContractorName  " +
+                 "FROM booking, skills, service_booking, contractor " +
+                 "WHERE booking.SkillId = skills.SkillId " +
+                 "AND booking.BookingId = service_booking.BookingId " +
+                 "AND service_booking.ContractorId = contractor.ContractorId " +
+                 "AND booking.BookingId LIKE '%" + bookingId +"%'" +
+                 "GROUP BY booking.BookingId";
+
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+
+            var temp = new ObservableCollection<JobRequest>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                JobRequest job = new JobRequest()
+                {
+                    bookingId = Convert.ToInt32(dr[0]),
+                    clientID = Convert.ToInt32(dr[1]),
+                    skillID = Convert.ToInt32(dr[2]),
+                    serviceName = dr[3].ToString(),
+                    bookingDate = Convert.ToDateTime(dr[4]),
+                    preferredTime = dr[5].ToString(),
+                    street = dr[6].ToString(),
+                    suburb = dr[7].ToString(),
+                    state = dr[8].ToString(),
+                    postcode = dr[9].ToString(),
+                    status = dr[10].ToString(),
+                    notes = dr[11].ToString(),
+                    startTime = dr[12].ToString(),
+                    endTime = dr[13].ToString(),
+                    contractorName = dr[14].ToString()
+
                 };
                 temp.Add(job);
             }

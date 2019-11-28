@@ -154,7 +154,7 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1">
                     <DataGrid Name="dgAll" HorizontalAlignment="Left" Height="329" VerticalAlignment="Top" Width="330"
-                           ItemsSource="{Binding JobRequests}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" Margin="0,24,0,-3"/>
+                           ItemsSource="{Binding JobRequests}" SelectedItem="{Binding SelectedJob, Mode=TwoWay}" Margin="0,24,0,-3" IsReadOnly="True"/>
                 </Grid>
 
                 <mycontrols:Search Grid.Row="0" Margin="94,8,5,335" Grid.RowSpan="2"/>

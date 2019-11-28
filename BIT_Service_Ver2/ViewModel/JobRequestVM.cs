@@ -19,7 +19,13 @@ namespace BIT_Service_Ver2.ViewModel
         private JobRequest _selectedJob;
         private Skill _selectedSkill;
         private Client _selectedClient;
-        private int rowsAffected; 
+        private int rowsAffected;
+        private string _input;
+        public string Input
+        {
+            get { return _input; }
+            set { _input = value; }
+        }
 
         public  ObservableCollection<JobRequest> JobRequests
         {
@@ -94,7 +100,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
-        public RelayCommand Add
+        public RelayCommand Save
         {
             get { return new RelayCommand(InsertBooking, true); }
         }
@@ -102,6 +108,41 @@ namespace BIT_Service_Ver2.ViewModel
         public RelayCommand Update
         {
             get { return new RelayCommand(UpdateBooking, true); }
+        }
+
+        public RelayCommand Search
+        {
+            get { return new RelayCommand(SearchBooking, true); }
+        }
+
+        public RelayCommand Add
+        {
+            get { return new RelayCommand(AddBooking, true); }
+        }
+
+        private void AddBooking()
+        {
+            int lastRow = JobRequests.Count;
+            JobRequest jobRequest = new JobRequest();
+
+            for (int i = 0; i <= lastRow; i++)
+            {
+                if (i == lastRow)
+                {
+                    JobRequests.Add(jobRequest);
+                }
+            }
+
+        }
+
+        private void SearchBooking()
+        {
+            JobRequests.Clear();
+            var temp = JobRequestDB.SearchJob(Input);
+            foreach (var item in temp)
+            {
+                JobRequests.Add(item);
+            }
         }
 
         private void InsertBooking()

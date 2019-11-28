@@ -18,6 +18,12 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<Contractor> _contractors = new ObservableCollection<Contractor>();
         private Contractor _selectedContractor;
         private int rowsAffected;
+        private string _input;
+        public string Input
+        {
+            get { return _input; }
+            set { _input = value; }
+        }
         public ObservableCollection<Contractor> Contractors
         {
             get { return _contractors; }
@@ -32,14 +38,14 @@ namespace BIT_Service_Ver2.ViewModel
         }
         public ContractorViewModel()
         {
-            var temp = ContractorDB.GetAllContractors(); // This is a separate method so that we can move this in a DAL Layer
+            var temp = ContractorDB.GetAllContractors(); 
             foreach (var item in temp)
             {
                 Contractors.Add(item);
             }
         }
 
-        public RelayCommand Add
+        public RelayCommand Save
         {
             get { return new RelayCommand(InsertContractor, true); }
         }
@@ -49,6 +55,29 @@ namespace BIT_Service_Ver2.ViewModel
             get { return new RelayCommand(UpdateContractor, true); }
         }
 
+        public RelayCommand Search
+        {
+            get { return new RelayCommand(SearchContractor, true); }
+        }
+        public RelayCommand Add
+        {
+            get { return new RelayCommand(AddContractor, true); }
+        }
+
+        private void AddContractor()
+        {
+            int lastRow = Contractors.Count;
+            Contractor contractor = new Contractor();
+
+            for (int i = 0; i <= lastRow; i++)
+            {
+                if (i == lastRow)
+                {
+                    Contractors.Add(contractor);
+                }
+            }
+
+        }
 
         private void InsertContractor()
         {
@@ -98,6 +127,17 @@ namespace BIT_Service_Ver2.ViewModel
                     MessageBox.Show("insert failed!");
                 }
             }
+        }
+
+        private void SearchContractor()
+        {
+            Contractors.Clear();
+            var temp = ContractorDB.SearchContractor(Input);
+            foreach (var item in temp)
+            {
+                Contractors.Add(item);
+            }
+
         }
 
         private static int ValidateUser(Contractor contractor)

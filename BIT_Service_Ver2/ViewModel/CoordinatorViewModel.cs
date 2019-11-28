@@ -18,6 +18,13 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<Coordinator> _coordinators = new ObservableCollection<Coordinator>();
         private Coordinator _selectedCoordinator;
         private int rowsAffected;
+        private int result;
+        private string _input;
+        public string Input
+        {
+            get { return _input; }
+            set { _input = value; }
+        }
         public ObservableCollection<Coordinator> Coordinators
         {
             get { return _coordinators; }
@@ -41,16 +48,37 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
-        public RelayCommand Add
+        public RelayCommand Save
         {
             get { return new RelayCommand(InsertCoord, true); }
         }
-
         public RelayCommand Update
         {
             get { return new RelayCommand(UpdateCoord, true); }
         }
+        public RelayCommand Search
+        {
+            get { return new RelayCommand(SearchCoordinator, true); }
+        }
+        public RelayCommand Add
+        {
+            get { return new RelayCommand(AddCoordinator, true); }
+        }
 
+        private void AddCoordinator()
+        {
+            int lastRow = Coordinators.Count;
+            Coordinator coordinator = new Coordinator();
+
+            for (int i = 0; i <= lastRow; i++)
+            {
+                if (i == lastRow)
+                {
+                    Coordinators.Add(coordinator);
+                }
+            }
+
+        }
 
         private void InsertCoord()
         {
@@ -102,6 +130,16 @@ namespace BIT_Service_Ver2.ViewModel
                 }
         }
 
+        private void SearchCoordinator()
+        {
+            Coordinators.Clear();
+            var temp = CoordinatorDB.SearchCoordinator(Input);
+            foreach (var item in temp)
+            {
+                Coordinators.Add(item);
+            }
+        }
+       
         private static int ValidateUser(Coordinator coordinator)
         {
             int result = 0;

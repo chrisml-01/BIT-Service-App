@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="0" Command="{Binding Add}"/>
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="7,8,0,0" VerticalAlignment="Top" Width="74" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="1"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="7,8,0,0" VerticalAlignment="Top" Width="74" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="1" Command="{Binding Save}"/>
         <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="5,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Column="2" Command="{Binding Update}"/>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="5,7,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="Black" BorderThickness="1" Grid.Column="3" IsEnabled="False"/>
     </Grid>

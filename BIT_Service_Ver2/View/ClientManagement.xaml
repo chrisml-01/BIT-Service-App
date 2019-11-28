@@ -129,7 +129,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <DataGrid x:Name="dgClient" HorizontalAlignment="Left" Height="330" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="330" 
-                          ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient, Mode=TwoWay}"/>
+                          ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient, Mode=TwoWay}" CanUserAddRows="True" IsReadOnly="True"/>
                 <mycontrols:Search Grid.Row="0" Margin="96,6,3,338" Grid.RowSpan="2"/>
                 <Grid Grid.Row="2">
                     <mycontrols:Buttons Margin="-5,0,5,64" Grid.Row="2"/>

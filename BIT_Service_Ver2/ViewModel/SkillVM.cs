@@ -15,6 +15,13 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
         private Skill _selectedSkill;
         private int rowsAffected;
+        private string _input;
+
+        public string Input
+        {
+            get { return _input; }
+            set { _input = value; }
+        }
 
         public ObservableCollection<Skill> Skills
         {
@@ -41,14 +48,46 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
-        public RelayCommand Add
+        public RelayCommand Save
         {
             get { return new RelayCommand(insertSkill, true); }
         }
-
         public RelayCommand Update
         {
             get { return new RelayCommand(updateSkill, true); }
+        }
+        public RelayCommand Add
+        {
+            get { return new RelayCommand(AddSkills, true); }
+        }
+        public RelayCommand Search
+        {
+            get { return new RelayCommand(SearchSkill, true); }
+        }
+
+        private void SearchSkill()
+        {
+            Skills.Clear();
+            var temp = SkillDB.SearchSkills(Input);
+            foreach (var item in temp)
+            {
+                Skills.Add(item);
+            }
+        }
+
+        private void AddSkills()
+        {
+            int lastRow = Skills.Count;
+            Skill skill = new Skill();
+
+            for (int i = 0; i <= lastRow; i++)
+            {
+                if (i == lastRow)
+                {
+                    Skills.Add(skill);
+                }
+            }
+
         }
 
         private void insertSkill()

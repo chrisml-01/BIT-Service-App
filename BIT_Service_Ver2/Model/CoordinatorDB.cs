@@ -128,6 +128,39 @@ namespace BIT_Service_Ver2.Model
 
             return rowsAffected;
         }
+
+        public static ObservableCollection<Coordinator> SearchCoordinator(string firstname)
+        {
+           
+            string strQuery = "SELECT * FROM coordinator WHERE coordinator.FirstName LIKE '%" + firstname+ "%'";
+           
+            DataTable dt = new DataTable();
+
+            dt = _DB.executeSQL(strQuery);
+
+            var temp = new ObservableCollection<Coordinator>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                Coordinator coordinator = new Coordinator()
+                {
+                    coordinatorId = Convert.ToInt32(dr[0]),
+                    FirstName = dr[1].ToString(),
+                    SurName = dr[2].ToString(),
+                    DOB = (DateTime)dr[3],
+                    Street = dr[4].ToString(),
+                    Suburb = dr[5].ToString(),
+                    State = dr[6].ToString(),
+                    Postcode = dr[7].ToString(),
+                    MobileNum = dr[8].ToString(),
+                    Email = dr[9].ToString(),
+                    Username = dr[10].ToString(),
+                    Password = dr[11].ToString()
+                };
+                temp.Add(coordinator);
+            }
+            return temp;
+        }
+
         public static int VerifyLogon(string username, string password)
         {
             string Username = "";

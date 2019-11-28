@@ -28,6 +28,7 @@ namespace BIT_Service_Ver2.View
             InitializeComponent();
 
             DataContext = new ClientViewModel();
+
         }     
     }
 }

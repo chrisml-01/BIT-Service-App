@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
               Height="36.53" Width="241.112">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="19" Margin="5,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="160,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0"/>
+        <TextBox HorizontalAlignment="Left" Height="19" Margin="5,8,0,0" TextWrapping="Wrap" Text="{Binding Input}" VerticalAlignment="Top" Width="150"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="160,8,0,0" VerticalAlignment="Top" Width="75" Background="#FF17242A" Foreground="White" BorderThickness="0" Command="{Binding Search}"/>
 
     </Grid>
 </UserControl>
