@@ -9,6 +9,8 @@ namespace BIT_Service_Ver2.Model
 {
     class Skill: NotifyClass
     {
+        private InputValidation val = new InputValidation();
+
         public int skillID { get; set; }
         public string skillName { get; set; }
         public string description { get; set; }
@@ -25,6 +27,18 @@ namespace BIT_Service_Ver2.Model
                     OnPropertyChanged("isChecked");
                 }
             }
+        }
+
+        public int ValidateSkill()
+        {
+            int result = 1;
+
+            if (val.skillDescription(description) == false || val.isChargeDouble(charge) == false)
+            {
+                result = 0;
+            }
+
+            return result;
         }
 
     }

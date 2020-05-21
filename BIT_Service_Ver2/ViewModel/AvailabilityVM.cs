@@ -14,25 +14,15 @@ namespace BIT_Service_Ver2.ViewModel
 {
     class AvailabilityVM : NotifyClass
     {
-        private ObservableCollection<Availability> _contractorAvail = new ObservableCollection<Availability>();
-        private ObservableCollection<ContractorSkills> _contractorSkills = new ObservableCollection<ContractorSkills>();
-        private ObservableCollection<PreferredLocation> _contractorLocation = new ObservableCollection<PreferredLocation>();
+        //variables
         private ObservableCollection<TimeSlot> _timeSlot = new ObservableCollection<TimeSlot>();
         private ObservableCollection<Contractor> _contractors = new ObservableCollection<Contractor>();
         private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
         private ObservableCollection<Days> _days = new ObservableCollection<Days>();
         private Contractor _selectedContractor;
         private int rowsAffected;
-        private int tab;
-        private int _selectedIndex;
-        public int SelectedIndex
-        {
-            get { return _selectedIndex; }
-            set {
-                _selectedIndex = value;
-                OnPropertyChanged("SelectedIndex");
-            }
-        }
+        
+        //A list of all contractors saved in the database with their details
         public ObservableCollection<Contractor> Contractors
         {
             get { return _contractors; }
@@ -44,6 +34,8 @@ namespace BIT_Service_Ver2.ViewModel
             set
             {
                 _selectedContractor = value;
+                //After selecting a specific contractor the two methods (checkSkills() & getAvail()) below will be used
+                //to check or match their skills and available days to the existing list of skills and days within the database
                 checkSkills();
                 getAvail();
                 OnPropertyChanged("SelectedContractor");               
@@ -51,66 +43,28 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //A list of all the days saved within the database
         public ObservableCollection<Days> Days
         {
             get { return _days; }
             set { _days = value; }
         }
-
+        //A list of all the skills saved within the database
         public ObservableCollection<Skill> Skill
         {
             get { return _skill; }
             set { _skill = value; }
         }
-
+        //A list of all the time slots saved within the database
         public ObservableCollection<TimeSlot> TimeSlots
         {
             get { return _timeSlot; }
             set { _timeSlot = value; }
         }
-
-        public ObservableCollection<Skill> Skills
-        {
-
-            get
-            {
-                if (_selectedContractor != null)
-                {
-                    _selectedContractor.skills = SkillDB.GetAllSkills();
-                    return _selectedContractor.skills;
-                }
-                return null;
-            }
-            set
-            {
-                _selectedContractor.skills = value;
-                _selectedContractor.skills = SkillDB.GetAllSkills();
-                OnPropertyChanged("SelectedContractor");
-            }
-        }
-
-        public ObservableCollection<Days> Availabilities
-        {
-            get
-            {
-                if(_selectedContractor != null)
-                {
-                    _selectedContractor.availabilities = AvailabilityDB.GetAllDays();
-                    return _selectedContractor.availabilities;
-                }
-                return null;
-            }
-            set
-            {
-                _selectedContractor.availabilities = value;
-                _selectedContractor.availabilities = AvailabilityDB.GetAllDays();
-                OnPropertyChanged("SelectedContractor");
-            }
-        }
-
+        
+        //constructor
         public AvailabilityVM()
         {
-
             var contractors = ContractorDB.GetAllContractors();
             foreach (var item in contractors)
             {
@@ -137,22 +91,25 @@ namespace BIT_Service_Ver2.ViewModel
 
         }
 
+        //Method for getting all availabilities of contractors
+        //This method will match all the days of the week with the available days of the selected contractor
         public void getAvail()
         {
-
-            foreach(Days contractors in Days)
+            foreach(Days days in Days)
             {
-                contractors.isChecked = false;
+                days.isChecked = false;
                 foreach(Days avail in AvailabilityDB.GetAllAvailability(SelectedContractor))
                 {
-                    if (avail.dayId == contractors.dayId)
+                    if (avail.dayId == days.dayId)
                     {
-                        contractors.isChecked = true;
+                        days.isChecked = true;
                     }
-                }
+                }   
             }          
         }
 
+        //Method for getting all the skills of contractors
+        //This method will match the skills of a contractor with all the skills saved in the database
         public void checkSkills()
         {
             foreach(Skill contractors in Skill)
@@ -169,6 +126,8 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //BUTTON COMMANDS
+        //All will be binded to button commands of UC (User Control): Buttons
         public RelayCommand AddDays
         {
             get { return new RelayCommand(insertDays, true); }
@@ -189,6 +148,8 @@ namespace BIT_Service_Ver2.ViewModel
             get { return new RelayCommand(updateSkill, true); }
         }
 
+        //Method for inserting a new contractor skill
+        //This will be binded to the 'AddSkills' button command above.
         private void insertSkill()
         {          
             foreach(Skill s in Skill)
@@ -209,11 +170,13 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //Method for updating a contractor skill
+        //This will be binded to the 'UpdateSkills' button command above.
         private void updateSkill()
         {
             if (SelectedContractor == null)
             {
-                MessageBox.Show("Please make sure that you've selected a contractor to update");
+                MessageBox.Show("Please make sure that you've selected a contractor to update.");
             }
             else
             {
@@ -239,6 +202,8 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //Method for adding new contractor available day/s 
+        //This method will be binded the 'AddDays' button command above.
         private void insertDays()
         {
             foreach(Days d in Days)
@@ -259,6 +224,8 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //Method for updating contractor available day/s 
+        //This method will be binded the 'UpdateDays' button command above.
         private void updateDays()
         {
             if(SelectedContractor == null)

@@ -17,34 +17,36 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
         private ObservableCollection<Contractor> _contractors = new ObservableCollection<Contractor>();
         private JobRequest _selectedJob;
-        private Skill _selectedSkill;
-        private Client _selectedClient;
         private int rowsAffected;
         private string _input;
+
+        //Will be binded for the SearchInput from the UC: Search
         public string Input
         {
             get { return _input; }
             set { _input = value; }
         }
 
-        public  ObservableCollection<JobRequest> JobRequests
+        //A list of all the job requests sent by the clients 
+        public ObservableCollection<JobRequest> JobRequests
         {
             get { return _job; }
             set { _job = value; }
         }
-
+        //A list of all the clients and their details
         public ObservableCollection<Client> Clients
         {
             get { return _client; }
             set { _client = value; }
         }
-
+        //A list of all the skills and their details
         public ObservableCollection<Skill> Skills
         {
             get { return _skill; }
             set { _skill = value; }
         }
 
+        //A list of all the contractors and their details
         public ObservableCollection<Contractor> BookingContractors
         {
             get { return _contractors; }
@@ -54,31 +56,14 @@ namespace BIT_Service_Ver2.ViewModel
         public JobRequest SelectedJob
         {
             get { return _selectedJob; }
-            set { _selectedJob = value;
-                OnPropertyChanged("SelectedJob");
-            }
-        }
-
-        public Skill SelectedSkill
-        {
-            get { return _selectedSkill ; }
             set
             {
-                _selectedSkill = value;
+                _selectedJob = value;
                 OnPropertyChanged("SelectedJob");
             }
         }
 
-        public Client SelectedClient
-        {
-            get { return _selectedClient; }
-            set
-            {
-                _selectedClient = value;
-                OnPropertyChanged("SelectedJob");
-            }
-        }
-
+        //constructor
         public JobRequestVM()
         {
             var temp = JobRequestDB.GetAllJob();
@@ -100,6 +85,8 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //BUTTON COMMANDS
+        //All will be binded to button commands of UC (User Controls): Buttons
         public RelayCommand Save
         {
             get { return new RelayCommand(InsertBooking, true); }
@@ -120,21 +107,24 @@ namespace BIT_Service_Ver2.ViewModel
             get { return new RelayCommand(AddBooking, true); }
         }
 
+        //This method will add a new row to the booking data grid
         private void AddBooking()
         {
             int lastRow = JobRequests.Count;
             JobRequest jobRequest = new JobRequest();
+            DateTime dt = DateTime.Now;
 
             for (int i = 0; i <= lastRow; i++)
             {
                 if (i == lastRow)
                 {
                     JobRequests.Add(jobRequest);
+
                 }
             }
-
         }
 
+        //Method for searching a specific booking information
         private void SearchBooking()
         {
             JobRequests.Clear();
@@ -145,91 +135,81 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //Method for adding a booking
+        //Will be binded to the the 'Save' button command above
         private void InsertBooking()
         {
-            if(SelectedJob == null)
+            try
             {
-                MessageBox.Show("Please select the last row before inserting.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }else if(ValidateBooking(SelectedJob) == 0)
-            {
-
-            }else if(ValidateBooking(SelectedJob) == 1)
-            {
-                rowsAffected = JobRequestDB.insertBooking(SelectedJob);
-
-                if (rowsAffected != 0)
+                if (SelectedJob == null)
                 {
-                    MessageBox.Show("Booking added! You can now see it in the Job Assignment tab!","Insert", MessageBoxButton.OK,MessageBoxImage.Question);
+                    MessageBox.Show("Please select the last row before inserting.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("insert failed!");
+                    //Method for validating the user input for the booking details
+                    switch (SelectedJob.ValidateJobRequest())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = JobRequestDB.insertBooking(SelectedJob);
+
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("Booking added! You can now see it in the Job Assignment tab!", "Insert", MessageBoxButton.OK, MessageBoxImage.Question);
+                            }
+                            break;
+                    }
                 }
             }
-            else
+            catch (NullReferenceException e)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Insert failed! Please make sure that you've given the necessary details to be added, please try again.");
             }
-
-
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
+
+        //Method for updating a booking
+        //Will be binded to the the 'Update' button command above
         private void UpdateBooking()
         {
-            if (SelectedJob == null)
+            try
             {
-                MessageBox.Show("Please make sure that you've selected a job to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (ValidateBooking(SelectedJob) == 0)
-            {
-
-            }
-            else if (ValidateBooking(SelectedJob) == 1)
-            {
-                rowsAffected = JobRequestDB.updateBooking(SelectedJob);
-
-                if (rowsAffected != 0)
+                if (SelectedJob == null)
                 {
-                    MessageBox.Show("booking updated!");
+                    MessageBox.Show("Please make sure that you've selected a job to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("update failed!");
+                    //Method for validating the user input for the booking details
+                    switch (SelectedJob.ValidateJobRequest())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = JobRequestDB.updateBooking(SelectedJob);
+
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("booking updated!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("update failed!");
+                            }
+                            break;
+                    }
                 }
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show("Error");
+                throw e;
             }
         }
-
-        private static int ValidateBooking(JobRequest job)
-        {
-            int result = 0;
-            
-
-            if(job.bookingDate < DateTime.Now)
-            {
-                MessageBox.Show("Booking date shouldn't be a date from the past. Please try again.");
-                result = 0;
-            }
-            else if (job.street.Length > 180 && job.suburb.Length > 180 && job.notes.Length > 180)
-            {
-                MessageBox.Show("Please make sure that your input doesn't exceed 180 characters.");
-                result = 0;
-            }
-            else if (job.postcode.Length > 4)
-            {
-                MessageBox.Show("Please make sure that your postcode doesn't exceed 4 characters.");
-                result = 0;
-            }
-            else
-            {
-                result = 1;
-            }
-
-            return result;
-        }
- 
     }
 }

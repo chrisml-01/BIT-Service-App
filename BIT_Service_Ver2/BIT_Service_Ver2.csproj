@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +48,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>bit_logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -75,27 +93,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\InputValidation.cs" />
     <Compile Include="Commands\NotifyClass.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandPara.cs" />
+    <Compile Include="Logger\DBLogger.cs" />
+    <Compile Include="Logger\EventLogger.cs" />
+    <Compile Include="Logger\FileLogger.cs" />
+    <Compile Include="Logger\LogBase.cs" />
+    <Compile Include="Logger\LogHelper.cs" />
     <Compile Include="Model\AssignedBooking.cs" />
     <Compile Include="Model\Availability.cs" />
-    <Compile Include="Model\AvailabilityDB.cs" />
+    <Compile Include="DB\AvailabilityDB.cs" />
     <Compile Include="Model\Client.cs" />
-    <Compile Include="Model\ClientDB.cs" />
+    <Compile Include="DB\ClientDB.cs" />
     <Compile Include="Model\Contractor.cs" />
     <Compile Include="Model\ContractorAvailable.cs" />
-    <Compile Include="Model\ContractorDB.cs" />
+    <Compile Include="DB\ContractorDB.cs" />
     <Compile Include="Model\Coordinator.cs" />
-    <Compile Include="Model\CoordinatorDB.cs" />
-    <Compile Include="Model\DAL.cs" />
+    <Compile Include="DB\CoordinatorDB.cs" />
     <Compile Include="Model\JobApproval.cs" />
-    <Compile Include="Model\JobAssignmentDB.cs" />
+    <Compile Include="DB\JobAssignmentDB.cs" />
     <Compile Include="Model\JobRequest.cs" />
-    <Compile Include="Model\JobRequestDB.cs" />
+    <Compile Include="DB\JobRequestDB.cs" />
     <Compile Include="Model\Skill.cs" />
-    <Compile Include="Model\SkillDB.cs" />
-    <Compile Include="Model\SQLHelper.cs" />
+    <Compile Include="DB\SkillDB.cs" />
+    <Compile Include="DB\SQLHelper.cs" />
+    <Compile Include="Test.cs" />
     <Compile Include="UserControls\Availability.xaml.cs">
       <DependentUpon>Availability.xaml</DependentUpon>
     </Compile>
@@ -157,6 +181,9 @@
     </Compile>
     <Compile Include="View\LogOn.xaml.cs">
       <DependentUpon>LogOn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PreferredLocation.xaml.cs">
+      <DependentUpon>PreferredLocation.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SkillManagement.xaml.cs">
       <DependentUpon>SkillManagement.xaml</DependentUpon>
@@ -248,6 +275,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PreferredLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SkillManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -294,6 +325,23 @@
     <Resource Include="Image\mainImg.png" />
     <Resource Include="Image\welcome.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="logo %281%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bit_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,28 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BIT_Service_Ver2.View"
-        mc:Ignorable="d"
-        Title="BIT Service" Height="595" Width="973" ResizeMode="NoResize">
+        mc:Ignorable="d"       
+        Title="BIT Service" Height="668.5" Width="526.75" ResizeMode="NoResize">
     <Grid>
         <!--<Rectangle Fill="#FFAECBDC" HorizontalAlignment="Left" Height="356" Margin="201,94,0,0" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="556" Opacity="0.8"/>-->
-        <Grid>
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                            <RotateTransform Angle="-53.13" CenterY="0.5" CenterX="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FF9ACBE6"/>
-                    <GradientStop Color="#FF72A7C5" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+        <Grid Background="#FF17242A">
             <!--<Image Source="/Image/background1.png" Margin="-32,-16,-22,-34"/>-->
             <Border BorderThickness="0" Grid.Row="0"
-                    CornerRadius="10,10,10,10" BorderBrush="Black" Margin="312,101,289,101" Background="#FFAECBDC">
+                    CornerRadius="10,10,10,10" BorderBrush="Black" Margin="80,150,77,179" Background="#FF5E8EA8">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1.3*"/>
@@ -33,7 +19,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <Label Content="BIT Login" HorizontalAlignment="Left" Margin="87,37,0,0" VerticalAlignment="Top" Height="73" Width="197" FontSize="48" FontFamily="Bauhaus 93" Foreground="White"/>
+                        <Label Content="BIT Login" HorizontalAlignment="Left" Margin="87,21,0,0" VerticalAlignment="Top" Height="73" Width="197" FontSize="48" FontFamily="Bauhaus 93" Foreground="White"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
@@ -50,8 +36,8 @@
                         </Grid.ColumnDefinitions>
                         <Label  Grid.Column="1" Content="Username:" HorizontalAlignment="Left" Margin="22,8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="89" Height="36" FontSize="16" FontWeight="Bold" FontFamily="Segoe UI Semibold"/>
                         <Label  Grid.Column="1" Content="Password:" HorizontalAlignment="Left" Margin="22,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="88" Height="36" FontSize="16" FontWeight="Bold" FontFamily="Segoe UI Semibold"/>
-                        <TextBox x:Name="txtUsername" Grid.Column="2" HorizontalAlignment="Left" Height="27" Margin="1,11,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" BorderThickness="0" FontSize="16"/>
-                        <PasswordBox x:Name="txtPassword" Grid.Column="2" HorizontalAlignment="Left" Height="27" Margin="1,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="184" BorderThickness="0" FontSize="16"/>
+                        <TextBox x:Name="txtUsername" Grid.Column="2" HorizontalAlignment="Left" Height="27" Margin="0,11,0,12" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="184" BorderThickness="0" FontSize="16" VerticalContentAlignment="Center"/>
+                        <PasswordBox x:Name="txtPassword" Grid.Column="2" HorizontalAlignment="Left" Height="27" Margin="0,5,0,18" Grid.Row="2" VerticalAlignment="Center" Width="184" BorderThickness="0" FontSize="16" VerticalContentAlignment="Center"/>
                         <Button x:Name="btnLogin" Content="Log in" HorizontalAlignment="Left" Margin="49,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="275" FontSize="18" Background="#FF17242A" Foreground="White" BorderThickness="0" Height="35" Grid.ColumnSpan="4" Click="BtnLogin_Click"/>
                     </Grid>
                 </Grid>

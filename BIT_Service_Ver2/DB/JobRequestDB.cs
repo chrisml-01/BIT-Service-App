@@ -223,7 +223,7 @@ namespace BIT_Service_Ver2.Model
             param[9] = new MySqlParameter("@notes", MySqlDbType.VarChar);
             param[9].Value = job.notes;
             param[10] = new MySqlParameter("@status", MySqlDbType.VarChar);
-            param[10].Value = job.status;
+            param[10].Value = "Awaiting for Approval";
 
             rowsaffected = _DB.NonQuerySql(query, param);
 
@@ -261,6 +261,20 @@ namespace BIT_Service_Ver2.Model
             param[9].Value = job.status;
             param[10] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
             param[10].Value = job.bookingId;
+
+            rowsaffected = _DB.NonQuerySql(query, param);
+
+            return rowsaffected;
+        }
+
+        public static int DeleteBooking(JobRequest job)
+        {
+            int rowsaffected;
+
+            string query = "DELETE FROM booking WHERE BookingId = @bookingId";
+            MySqlParameter[] param = new MySqlParameter[1];
+            param[0] = new MySqlParameter("@bookingId", MySqlDbType.Int32);
+            param[0].Value = job.bookingId;
 
             rowsaffected = _DB.NonQuerySql(query, param);
 

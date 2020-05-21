@@ -14,20 +14,22 @@ namespace BIT_Service_Ver2.Model
     {
         private static SQLHelper _DB = new SQLHelper("bitconnString");
 
-        //Get all Contractor Details
+        //READ ALL CONTRACTOR DETAILS
         public static ObservableCollection<Contractor> GetAllContractors()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["bitconnString"].ConnectionString;
 
             MySqlConnection myConn = new MySqlConnection(connectionString);
 
+            //Get all Contractor Details
             string strQuery = "select contractorId, FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password from Contractor";
-            MySqlCommand cmd = new MySqlCommand(strQuery, myConn);
+            MySqlCommand cmd = new MySqlCommand(strQuery, myConn); //execute query
 
             DataTable dt = new DataTable();
             MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
-            adap.Fill(dt);
+            adap.Fill(dt);  //execute query
 
+            //display all data of the executed query
             var temp = new ObservableCollection<Contractor>();
             foreach (DataRow dr in dt.Rows)
             {
@@ -51,14 +53,18 @@ namespace BIT_Service_Ver2.Model
             return temp;
         }
 
+        //CRUD PART OF CONTRACTORS
+
+        //INSERT CONTRACTOR DETAILS
         public static int insertContractor(Contractor contractor)
         {
             int rowsaffected;
 
+            //insert all the details of new contractor 
             string query = "INSERT INTO contractor (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password)" +
                " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email, @username, @password)";
 
-            Contractor Addcontractor = new Contractor();
+            //parameters to be executed
             MySqlParameter[] param = new MySqlParameter[11];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = contractor.FirstName;
@@ -83,19 +89,21 @@ namespace BIT_Service_Ver2.Model
             param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
             param[10].Value = contractor.Password;
 
-            rowsaffected = _DB.NonQuerySql(query, param);
+            rowsaffected = _DB.NonQuerySql(query, param); //execute query and params
 
             return rowsaffected;
         }
 
+        //UPDATE CONTRACTOR DETAILS
         public static int updateContractor(Contractor contractor)
         {
             int rowsAffected;
 
+            //update all data of the selected contractor
             string query = "UPDATE CONTRACTOR SET FirstName = @firstName, SurName = @surName, DOB = @dob, Street = @street, " +
                 "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber, Username = @username, Password = @password WHERE ContractorId = @contractorId";
 
-            Contractor Addcontractor = new Contractor();
+            //parameters to be executed
             MySqlParameter[] param = new MySqlParameter[12];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = contractor.FirstName;
@@ -122,23 +130,24 @@ namespace BIT_Service_Ver2.Model
             param[11] = new MySqlParameter("@contractorId", MySqlDbType.VarChar);
             param[11].Value = contractor.contractorID;
 
-            rowsAffected = _DB.NonQuerySql(query, param);
+            rowsAffected = _DB.NonQuerySql(query, param); //execute query and params
 
 
             return rowsAffected;
 
         }
 
+        //SEARCH SPECIFIC CONTRACTOR
         public static ObservableCollection<Contractor> SearchContractor(string firstname)
         {
-
+            //get all the details of the searched name of the contractor
             string strQuery = "SELECT * FROM contractor WHERE contractor.FirstName LIKE '%" + firstname + "%'";
             
-
             DataTable dt = new DataTable();
 
-            dt = _DB.executeSQL(strQuery);
+            dt = _DB.executeSQL(strQuery); //execute query
 
+            //display all data of the searched contractor
             var temp = new ObservableCollection<Contractor>();
             foreach (DataRow dr in dt.Rows)
             {

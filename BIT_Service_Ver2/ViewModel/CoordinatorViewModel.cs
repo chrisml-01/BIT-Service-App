@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -18,13 +19,15 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<Coordinator> _coordinators = new ObservableCollection<Coordinator>();
         private Coordinator _selectedCoordinator;
         private int rowsAffected;
-        private int result;
         private string _input;
+       
         public string Input
         {
             get { return _input; }
             set { _input = value; }
         }
+
+        //A list of all the coordinators and their details
         public ObservableCollection<Coordinator> Coordinators
         {
             get { return _coordinators; }
@@ -39,15 +42,19 @@ namespace BIT_Service_Ver2.ViewModel
                 OnPropertyChanged("SelectedCoordinator");
             }
         }
+
+        //constructor
         public CoordinatorViewModel()
         {
-            var temp = CoordinatorDB.GetAllCoordinators(); // This is a separate method so that we can move this in a DAL Layer
+            var temp = CoordinatorDB.GetAllCoordinators(); 
             foreach (var item in temp)
             {
                 Coordinators.Add(item);
             }
         }
 
+        //BUTTON COMMANDS
+        //All will be binded to button commands of UC (User Controls): Buttons
         public RelayCommand Save
         {
             get { return new RelayCommand(InsertCoord, true); }
@@ -65,6 +72,7 @@ namespace BIT_Service_Ver2.ViewModel
             get { return new RelayCommand(AddCoordinator, true); }
         }
 
+        //Method for adding a new row to the contractor data grid
         private void AddCoordinator()
         {
             int lastRow = Coordinators.Count;
@@ -80,56 +88,82 @@ namespace BIT_Service_Ver2.ViewModel
 
         }
 
+        //Method for inserting a new coordinator
+        //Will be binded to the the 'Save' button command above
         private void InsertCoord()
         {
-            if (SelectedCoordinator == null)
+            try
             {
-                MessageBox.Show("Please select the last row before inserting.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (ValidateUser(SelectedCoordinator) == 0)
-            {
-
-            }
-            else if (ValidateUser(SelectedCoordinator) == 1)
-            {
-                rowsAffected = CoordinatorDB.insertCoordinator(SelectedCoordinator);
-
-                if (rowsAffected != 0)
+                if (SelectedCoordinator == null)
                 {
-                    MessageBox.Show("Coordinator added!");
+                    MessageBox.Show("Please select the last row before inserting.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("insert failed!");
+                    switch (SelectedCoordinator.ValidateCoordinator())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = CoordinatorDB.insertCoordinator(SelectedCoordinator);
+
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("Coordinator successfully added!");
+                            }
+                            break;
+                    }
                 }
             }
+            catch (NullReferenceException e)
+            {
+                MessageBox.Show("Insert Failed! Please make sure that you've given all the necessary details to be added, please try again.");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
         }
 
+        //Method for updating coordinator details.
+        //Will be binded to the 'Update' button command above
         private void UpdateCoord()
         {
-            if (SelectedCoordinator == null)
+            try
             {
-                MessageBox.Show("Please make sure that you've selected a coordinator to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (ValidateUser(SelectedCoordinator) == 0)
-            {
-
-            }
-            else if (ValidateUser(SelectedCoordinator) == 1) {
-                
-                    rowsAffected = CoordinatorDB.updateCoordinator(SelectedCoordinator);
-
-                    if (rowsAffected != 0)
+                if (SelectedCoordinator == null)
+                {
+                    MessageBox.Show("Please make sure that you've selected a coordinator to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    switch (SelectedCoordinator.ValidateCoordinator())
                     {
-                        MessageBox.Show("Coordinator updated!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("insert failed!");
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = CoordinatorDB.updateCoordinator(SelectedCoordinator);
+
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("Coordinator successfully updated!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Update failed! Please try again.");
+                            }
+                            break;
                     }
                 }
+            }catch (Exception e)
+            {
+                throw e;
+            }
+           
         }
 
+        //Method for searching a specific coordinator information
         private void SearchCoordinator()
         {
             Coordinators.Clear();
@@ -139,41 +173,6 @@ namespace BIT_Service_Ver2.ViewModel
                 Coordinators.Add(item);
             }
         }
-       
-        private static int ValidateUser(Coordinator coordinator)
-        {
-            int result = 0;
-
-            if (coordinator.FirstName == coordinator.SurName)
-            {
-                MessageBox.Show("First name and surname can't be similar. Please try again.");
-                result = 0;
-            }
-            else if (coordinator.DOB >= DateTime.Now)
-            {
-                MessageBox.Show("Date of birth should not be the date today or the future.");
-                result = 0;
-            }
-            else if (coordinator.MobileNum.Length > 11)
-            {
-                MessageBox.Show("Please make sure that your phone number is correct.");
-            }
-            else if (coordinator.FirstName.Length > 180 && coordinator.SurName.Length > 180 && coordinator.Street.Length > 180 && coordinator.Suburb.Length > 180 && coordinator.Username.Length > 180 && coordinator.Password.Length > 180)
-            {
-                MessageBox.Show("Please make sure that your input doesn't exceed 180 characters.");
-                result = 0;
-            }
-            else if (coordinator.Postcode.Length > 4)
-            {
-                MessageBox.Show("Please make sure that your postcode doesn't exceed 4 characters.");
-                result = 0;
-            }
-            else
-            {
-                result = 1;
-            }
-
-            return result;
-        }
+  
     }
 }

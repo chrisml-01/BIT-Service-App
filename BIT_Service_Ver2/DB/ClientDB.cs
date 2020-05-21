@@ -14,20 +14,22 @@ namespace BIT_Service_Ver2.Model
     {
         private static SQLHelper _DB = new SQLHelper("bitconnString");
 
-        //Get all Client Details
+        
         public static ObservableCollection<Client> GetAllClients()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["bitconnString"].ConnectionString;
 
             MySqlConnection myConn = new MySqlConnection(connectionString);
 
+            //Get all Client Details
             string strQuery = "select clientId, FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password from Client";
             MySqlCommand cmd = new MySqlCommand(strQuery, myConn);
 
             DataTable dt = new DataTable();
             MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
-            adap.Fill(dt);
+            adap.Fill(dt); //execute the query 
 
+            //display all data of client table from the database
             var temp = new ObservableCollection<Client>();
             foreach (DataRow dr in dt.Rows)
             {
@@ -51,14 +53,18 @@ namespace BIT_Service_Ver2.Model
             return temp;
         }
 
+        //CRUD PART OF CLIENTS
+
+        //INSERT CLIENT DETAILS
         public static int insertClient(Client client)
         {
             int rowsaffected;
 
+            //insert all data of the new client
             string query = "INSERT INTO client (FirstName, SurName, DOB, Street, Suburb, State, Postcode, MobileNumber, Email, Username, Password)" +
                " VALUES (@firstName, @surName, @dob, @street, @suburb, @state, @postcode, @mobileNumber, @email, @username, @password)";
 
-            Client Addclient = new Client();
+            //parameter to be executed
             MySqlParameter[] param = new MySqlParameter[11];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = client.FirstName;
@@ -83,19 +89,21 @@ namespace BIT_Service_Ver2.Model
             param[10] = new MySqlParameter("@password", MySqlDbType.VarChar);
             param[10].Value = client.Password;
 
-            rowsaffected = _DB.NonQuerySql(query, param);
+            rowsaffected = _DB.NonQuerySql(query, param); //execute query and params
 
             return rowsaffected;
         }
-
+    
+        //UPDATE CLIENT DETAILS
         public static int updateClient(Client client)
         {
             int rowsAffected;
 
+            //update all data of the selected client
             string query = "UPDATE CLIENT SET FirstName = @firstName, SurName = @surName, DOB = @dob, Street = @street, " +
                 "Suburb = @suburb, State = @state, PostCode = @postCode, Email = @email, MobileNumber = @mobileNumber, Username = @username, Password = @password WHERE ClientId = @clientID";
 
-            Client Addclient = new Client();
+            //parameter to be executed
             MySqlParameter[] param = new MySqlParameter[12];
             param[0] = new MySqlParameter("@firstname", MySqlDbType.VarChar);
             param[0].Value = client.FirstName;
@@ -122,22 +130,24 @@ namespace BIT_Service_Ver2.Model
             param[11] = new MySqlParameter("@clientID", MySqlDbType.Int32);
             param[11].Value = client.clientID;
 
-            rowsAffected = _DB.NonQuerySql(query, param);
+            rowsAffected = _DB.NonQuerySql(query, param); //execute query and params
 
 
             return rowsAffected;
 
         }
 
+        //READ SEPECIFIC CLIENT DETAILS
         public static ObservableCollection<Client> GetClient()
         {
-
+            //Get only clientId, firstname and surname of the client from the client table
             string strQuery = "select clientId, FirstName, SurName from Client";
 
             DataTable dt = new DataTable();
 
-            dt = _DB.executeSQL(strQuery);
+            dt = _DB.executeSQL(strQuery); //execute the query
 
+            //display the executed query
             var temp = new ObservableCollection<Client>();
             foreach (DataRow dr in dt.Rows)
             {
@@ -152,15 +162,17 @@ namespace BIT_Service_Ver2.Model
             return temp;
         }
 
+        //SEARCH SPECIFIC CLIENT
         public static ObservableCollection<Client> SearchClient(string firstname)
         {
-
+            //get all the details of the searched name of the client
             string strQuery = "SELECT * FROM client WHERE client.FirstName LIKE '%" + firstname + "%';";
 
             DataTable dt = new DataTable();
 
-            dt = _DB.executeSQL(strQuery);
+            dt = _DB.executeSQL(strQuery); //execute the query
 
+            //display all data of the searched client
             var temp = new ObservableCollection<Client>();
             foreach (DataRow dr in dt.Rows)
             {

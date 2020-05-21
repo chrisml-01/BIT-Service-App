@@ -28,8 +28,6 @@ namespace BIT_Service_Ver2.View
         {
             InitializeComponent();
             DataContext = new JobAssignmentVM();
-
-            dgavailableContractors.DataContext = new JobAssignmentVM();
            
         }
 
@@ -73,37 +71,48 @@ namespace BIT_Service_Ver2.View
 
         private void BtnAssign_Click(object sender, RoutedEventArgs e)
         {
-
+            
             int rowsAffected = 0;
+            int updateCoord = 0;
 
-            if (txtBookingId.Text == "" && txtClientId.Text == "")
+            if (txtBookingId.Text == "" || txtClientId.Text == "")
             {
-                MessageBox.Show("Assign Failed! Please make sure that you've selected contractor(s) to assign.");
+                MessageBox.Show("Assign Failed! Please make sure that you've selected a job to assign.");
             }
             else
             {
                 int bookingId = int.Parse(txtBookingId.Text);
                 int clientId = int.Parse(txtClientId.Text);
+                
 
-                foreach (var items in dgavailableContractors.ItemsSource)
+                if (cbxStaff.SelectedItem != null)
                 {
-                    ContractorAvailable contractor = items as ContractorAvailable;
-
-                    if (contractor.isChecked == true)
+                    int coordinatorId = int.Parse(cbxStaff.SelectedValue.ToString());
+                    foreach (var items in dgavailableContractors.ItemsSource)
                     {
+                        ContractorAvailable contractor = items as ContractorAvailable;
 
-                        rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractor.contractorId);
+                        if (contractor.isChecked == true)
+                        {
+                            rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractor.contractorId);
+
+                        }
                     }
-
-                }
-
-                if (rowsAffected != 0)
-                {
-                    MessageBox.Show("Job successfully assigned!");
+                    
+                    updateCoord = JobAssignmentDB.updateCoordinatorId(coordinatorId, bookingId, clientId);
+                    if (rowsAffected != 0 && updateCoord != 0)
+                    {
+                        MessageBox.Show("Job successfully assigned!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Assign Failed! Please make sure that you've selected contractor(s) to assign.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Assign Failed! Please make sure that you've selected contractor(s) to assign.");
+                    MessageBox.Show("Please make sure that you've confirm your Staff Details");
+                    cbxStaff.Focus();
                 }
             }
         }

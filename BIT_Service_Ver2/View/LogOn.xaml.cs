@@ -1,4 +1,5 @@
-﻿using BIT_Service_Ver2.Model;
+﻿using BIT_Service_Ver2.Logger;
+using BIT_Service_Ver2.Model;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -31,34 +32,44 @@ namespace BIT_Service_Ver2.View
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string un = txtUsername.Text;
-            string pwd = txtPassword.Password;
+            try
+            {
+                string un = txtUsername.Text;
+                string pwd = txtPassword.Password;
 
-            int result = VerifyLogon(un, pwd);
+                int result = VerifyLogon(un, pwd);
 
-            if (result == 0)
+                if (result == 0)
+                {
+                    MessageBox.Show("Welcome back, " + un);
+                    this.Hide();
+                    CoordinatorMenu main = new CoordinatorMenu();
+                    main.ShowDialog();
+                    this.Close();
+                }
+                else if (result == 1)
+                {
+                    MessageBox.Show("Welcome back, Admin " + un);
+                    this.Hide();
+                    MainWindow main = new MainWindow();
+                    main.txtName.Text = un;
+                    main.ShowDialog();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect Password or Username, Please Try Again");
+                    txtUsername.Focus();
+                }
+            }catch (Exception ex)
             {
-                MessageBox.Show("Welcome back, " + un);
-                this.Hide();
-                Window main = new CoordinatorMenu();
-                main.ShowDialog();
-                this.Close();
-            }
-            else if (result == 1)
-            {
-                MessageBox.Show("Welcome back, Admin " + un);
-                this.Hide();
-                Window main = new MainWindow();
-                main.ShowDialog();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Incorrect Password or Username, Please Try Again");
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                LogHelper.Log(LogTarget.File, "LogOn", ex.ToString());
             }
 
         }
-
+        //Method to verify the username and password logon 
+        //This method connects to the database and retrieves the ID, Username, Password and wether they're an admin or not
         public static int VerifyLogon(string username, string password)
         {
             string Username = "";
@@ -83,7 +94,7 @@ namespace BIT_Service_Ver2.View
             if (username == Username && password == Password)
             {
 
-                if(isAdmin == false)
+                if (isAdmin == false)
                 {
                     result = 0;
                 }
@@ -99,6 +110,5 @@ namespace BIT_Service_Ver2.View
             return result;
 
         }
-
     }
 }

@@ -15,22 +15,34 @@ namespace BIT_Service_Ver2.ViewModel
         private ObservableCollection<JobRequest> _job = new ObservableCollection<JobRequest>();
         private ObservableCollection<ContractorAvailable> _contractors = new ObservableCollection<ContractorAvailable>();
         private ObservableCollection<Skill> _skill = new ObservableCollection<Skill>();
+        private ObservableCollection<Coordinator> _coordinators = new ObservableCollection<Coordinator>();
         private JobRequest _selectedJob;
         private ContractorAvailable _selectedContractor;
         private int rowsAffected;
+       
 
+        //A list of all the unassigned jobs and their details
         public ObservableCollection<JobRequest> UnassignedJob
         {
             get { return _job; }
             set { _job = value; }
         }
 
+        //A list of all the skills and their details
         public ObservableCollection<Skill> Skills
         {
             get { return _skill; }
             set { _skill = value; }
         }
 
+        //A list of all the coordinators and their details
+        public ObservableCollection<Coordinator> Coordinators
+        {
+            get { return _coordinators; }
+            set { _coordinators = value; }
+        }
+
+        //A list of all the contractors available and their details
         public ObservableCollection<ContractorAvailable> ContractorsAvailable
         {
             get { return _contractors; }
@@ -57,7 +69,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
-
+        //constructor
         public JobAssignmentVM()
         {
 
@@ -72,8 +84,15 @@ namespace BIT_Service_Ver2.ViewModel
             {
                 Skills.Add(item);
             }
+
+            var coord = CoordinatorDB.GetAllCoords();
+            foreach (var item in coord)
+            {
+                Coordinators.Add(item);
+            }
         }
 
+        //constructor with parameters to search for available contractors of the selected job
         public JobAssignmentVM(string time, DateTime bookingdate, string suburb, int contractorSkill)
         {
 
@@ -86,42 +105,95 @@ namespace BIT_Service_Ver2.ViewModel
             
         }
 
+        //BUTTON COMMANDS
+        //All will be binded to button commands of UC (User Controls): Buttons
         public RelayCommand Update
         {
             get { return new RelayCommand(UpdateBooking, true); }
         }
 
+        public RelayCommand Delete
+        {
+            get { return new RelayCommand(DeleteBooking, true); }
+        }
+
+        //Method for updating a booking
+        //This will be binded to the 'Update' button command above
         private void UpdateBooking()
         {
-
-            if (SelectedJob == null)
+            try
             {
-                MessageBox.Show("Please make sure that you've selected a job to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (ValidateBooking(SelectedJob) == 0)
-            {
-
-            }
-            else if (ValidateBooking(SelectedJob) == 1)
-            {
-                rowsAffected = JobRequestDB.updateBooking(SelectedJob);
-
-                if (rowsAffected != 0)
+                if (SelectedJob == null)
                 {
-                    MessageBox.Show("booking updated!");
+                    MessageBox.Show("Please make sure that you've selected a job to update.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else
+                else 
                 {
-                    MessageBox.Show("update failed!");
+                    switch (SelectedJob.ValidateJobRequest())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = JobRequestDB.updateBooking(SelectedJob);
+
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("booking updated!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("update failed!");
+                            }
+                            break;
+                    }
                 }
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show("Error");
+                throw e;
             }
 
         }
 
+        //Method for deleting a booking
+        //This will be binded to the 'Delete' button command above
+        private void DeleteBooking()
+        {
+            try
+            {
+                if (SelectedJob == null)
+                {
+                    MessageBox.Show("Please make sure that you've selected a job to delete.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    switch (SelectedJob.ValidateJobRequest())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = JobRequestDB.DeleteBooking(SelectedJob);
+
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("booking deleted!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("delete failed!");
+                            }
+                            break;
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        //Method for assigning a booking to contractor/s
         public void AssignBooking(int bookingId, int clientId, int contractorId)
         {
             rowsAffected = JobAssignmentDB.insertAssignBooking(bookingId, clientId, contractorId);
@@ -136,34 +208,5 @@ namespace BIT_Service_Ver2.ViewModel
             }
 
         }
-
-        private static int ValidateBooking(JobRequest job)
-        {
-            int result = 0;
-
-
-            if (job.bookingDate < DateTime.Now)
-            {
-                MessageBox.Show("Booking date shouldn't be a date from the past. Please try again.");
-                result = 0;
-            }
-            else if (job.street.Length > 180 && job.suburb.Length > 180 && job.notes.Length > 180)
-            {
-                MessageBox.Show("Please make sure that your input doesn't exceed 180 characters.");
-                result = 0;
-            }
-            else if (job.postcode.Length > 4)
-            {
-                MessageBox.Show("Please make sure that your postcode doesn't exceed 4 characters.");
-                result = 0;
-            }
-            else
-            {
-                result = 1;
-            }
-
-            return result;
-        }
-
     }
 }

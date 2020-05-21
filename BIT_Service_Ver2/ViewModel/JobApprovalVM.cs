@@ -16,12 +16,13 @@ namespace BIT_Service_Ver2.ViewModel
         private JobApproval _selectedJob;
         private int rowsAffected;
 
+        //A list of all the completed jobs and their details
         public ObservableCollection<JobApproval> CompletedJob
         {
             get { return _job; }
             set { _job = value; }
         }
-
+       
         public JobApproval SelectedJob
         {
             get { return _selectedJob; }
@@ -32,6 +33,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //constructor
         public JobApprovalVM()
         {
             var temp = JobRequestDB.GetAllJobApproval();
@@ -41,6 +43,8 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //BUTTON COMMANDS
+        //All will be binded to button commands of UC (User Controls): Buttons
         public RelayCommand Approve
         {
             get { return new RelayCommand(ApproveBooking, true); }
@@ -51,6 +55,8 @@ namespace BIT_Service_Ver2.ViewModel
             get { return new RelayCommand(DisapproveBooking, true); }
         }
 
+        //Method for approving a completed job
+        //This will be binded to the 'Approve' button commands above.
         private void ApproveBooking()
         {
             if(SelectedJob == null)
@@ -74,6 +80,8 @@ namespace BIT_Service_Ver2.ViewModel
 
         }
 
+        //Method for disapproving a completed job
+        //This will be binded to the 'Disapprove' button commands above.
         private void DisapproveBooking()
         {
             if (SelectedJob == null)

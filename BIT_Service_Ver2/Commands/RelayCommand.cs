@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace BIT_Service_Ver2.Commands
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action localAction;
         private bool _localCanExecute;

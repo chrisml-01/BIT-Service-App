@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BIT_Service_Ver2"
         mc:Ignorable="d"
+        Icon="bit_logo.ico"
         Title="BIT Service" Height="595" Width="973" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -45,6 +46,8 @@
                 <Button x:Name="btnUsers" Content="User Management" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="180" Height="32" Grid.Row="2" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI Semibold" Foreground="White" Background="#FF22343C" BorderThickness="0" Click="BtnUsers_Click"/>
                 <Button x:Name="btnServices" Content="Job Management" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="180" Height="32" Grid.Row="3" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI Semibold" Foreground="White" Background="#FF22343C" BorderThickness="0" Click="BtnServices_Click"/>
                 <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Left" Margin="0,280,0,0" VerticalAlignment="Top" Width="180" Height="32" Grid.Row="4" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI Semibold" Foreground="White" Background="#FF22343C" BorderThickness="0" Click="btnLogout_Click"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Welcome back," VerticalAlignment="Top" Margin="10,10,0,0" FontSize="14" Foreground="White"/>
+                <TextBlock x:Name="txtName" HorizontalAlignment="Left" Margin="105,10,0,0" TextWrapping="Wrap" Text="Name here" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Image Source="Image/mainImg.png" Margin="198,136,8,0" />

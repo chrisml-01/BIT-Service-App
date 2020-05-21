@@ -123,35 +123,7 @@
                                 </ListView>
                             </GroupBox>
 
-                            <GroupBox Header="TimeSlot" HorizontalAlignment="Left" Height="75" Margin="51,211,0,0" VerticalAlignment="Top" Width="351">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0">
-                                        <ListView ItemsSource="{Binding TimeSlots}">
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <CheckBox Content="{Binding startTime}"
-                                                          IsChecked="{Binding isChecked, Mode=TwoWay}"/>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                        </ListView>
-                                    </Grid>
-                                    <Grid Grid.Column="1">
-                                        <ListView ItemsSource="{Binding TimeSlots}">
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <CheckBox Content="{Binding endTime}"
-                                                          IsChecked="{Binding isChecked, Mode=TwoWay}"/>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                        </ListView>
-                                    </Grid>
-                                </Grid>
-
-                            </GroupBox>
+                         
 
                         </Grid>
                         <Grid Grid.Column="1">
@@ -178,6 +150,12 @@
                                 </Grid>
                             </Grid>
                         </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Location" Width="100" Background="#72a7c5">
+                    <Grid>
+                        
                     </Grid>
                 </TabItem>
             </TabControl>

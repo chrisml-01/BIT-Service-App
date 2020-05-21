@@ -17,12 +17,14 @@ namespace BIT_Service_Ver2.ViewModel
         private int rowsAffected;
         private string _input;
 
+        //Will be binded for the SearchInput from the UC: Search
         public string Input
         {
             get { return _input; }
             set { _input = value; }
         }
 
+        //A list of all the skills and their details
         public ObservableCollection<Skill> Skills
         {
             get { return _skill; }
@@ -39,6 +41,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //constructor
         public SkillVM()
         {
             var temp = SkillDB.GetAllSkills();
@@ -48,6 +51,8 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //BUTTON COMMANDS
+        //All will be binded to button commands of UC (User Controls): Buttons
         public RelayCommand Save
         {
             get { return new RelayCommand(insertSkill, true); }
@@ -65,6 +70,8 @@ namespace BIT_Service_Ver2.ViewModel
             get { return new RelayCommand(SearchSkill, true); }
         }
 
+        //Method for searching a specific skill information
+        //This will be binded to the 'Search' button command above
         private void SearchSkill()
         {
             Skills.Clear();
@@ -75,6 +82,7 @@ namespace BIT_Service_Ver2.ViewModel
             }
         }
 
+        //Method for adding a new row to the skill data grid
         private void AddSkills()
         {
             int lastRow = Skills.Count;
@@ -90,6 +98,8 @@ namespace BIT_Service_Ver2.ViewModel
 
         }
 
+        //Method for adding a new skill
+        //This will be binded to the 'Save' button command above
         private void insertSkill()
         {
             if (SelectedSkill == null)
@@ -98,19 +108,36 @@ namespace BIT_Service_Ver2.ViewModel
             }
             else
             {
-                rowsAffected = SkillDB.insertSkill(SelectedSkill);
+                try
+                {
+                    switch (SelectedSkill.ValidateSkill())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = SkillDB.insertSkill(SelectedSkill);
 
-                if (rowsAffected != 0)
-                {
-                    MessageBox.Show("skill added!");
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("Skill has been added!");
+                            }                           
+                            break;
+                    }
                 }
-                else
+                catch (NullReferenceException e)
                 {
-                    MessageBox.Show("insert failed!");
+                    MessageBox.Show("Insert failed! Please make sure that you've given the correct details to be added, please try again.");
                 }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                
             }
         }
 
+        //Method for updating a skill
+        //This will be binded to the 'Update' button command above
         private void updateSkill()
         {
             if (SelectedSkill == null)
@@ -119,16 +146,31 @@ namespace BIT_Service_Ver2.ViewModel
             }
             else
             {
-                rowsAffected = SkillDB.updateSkill(SelectedSkill);
+                try
+                {
+                    switch (SelectedSkill.ValidateSkill())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            rowsAffected = SkillDB.updateSkill(SelectedSkill);
 
-                if (rowsAffected != 0)
-                {
-                    MessageBox.Show("skill updated!");
+                            if (rowsAffected != 0)
+                            {
+                                MessageBox.Show("Skill has been updated!");
+                            }
+                            break;
+                    }
                 }
-                else
+                catch (NullReferenceException e)
                 {
-                    MessageBox.Show("update failed!");
+                    MessageBox.Show("Update failed! Please make sure that you've given the correct details to be added, please try again.");
                 }
+                catch(Exception e)
+                {
+                    throw e;
+                }
+                
             }
         }
     }

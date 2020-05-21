@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BIT_Service_Ver2.Commands
 {
-    class NotifyClass : INotifyPropertyChanged
+    public class NotifyClass : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -79,14 +79,14 @@
                                 </Grid.RowDefinitions>
                                 <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="1" Click="BtnSearch_Click"/>
                                 <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="2" Command="{Binding Update}"/>
-                                <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="Black" BorderThickness="1,1,1,1" Grid.Row="3" IsEnabled="False"/>
+                                <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="Black" BorderThickness="1,1,1,1" Grid.Row="3" Command="{Binding Delete}" IsEnabled="False"/>
                                 <Button x:Name="btnReset" Content="Cancel" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" Width="76" Background="#FF17242A" Foreground="White" BorderThickness="0" Grid.Row="4" Click="btnReset_Click"/>
                             </Grid>
                         </Grid>
                     </GroupBox>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <GroupBox Header="More Details" HorizontalAlignment="Left" Height="216" Margin="23,24,0,0"  VerticalAlignment="Top" Width="406">
+                    <GroupBox Header="More Details" HorizontalAlignment="Left" Height="246" Margin="23,24,0,0"  VerticalAlignment="Top" Width="406">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="279*"/>
@@ -98,15 +98,17 @@
                                     <RowDefinition Height="27"/>
                                     <RowDefinition Height="27"/>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="27"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="70"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Content="Street:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,1,0,0" Grid.Row="0"/>
-                                <Label Content="State:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="31,0,0,0" Grid.Row="1"/>
-                                <Label Content="Postcode:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="9,1,0,0" Grid.Row="2"/>
-                                <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,0,0,0" Grid.Row="3"/>
+                                <Label Content="Street:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,1,0,0" Grid.Row="0" Height="26" Width="43"/>
+                                <Label Content="State:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="31,0,0,0" Grid.Row="1" Height="26" Width="44"/>
+                                <Label Content="Postcode:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="9,1,0,0" Grid.Row="2" Height="26" Width="66"/>
+                                <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="26,0,0,0" Grid.Row="3" Height="26" Width="49"/>
+                                <Label Content="Staff:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Grid.Row="4" Height="26" Width="54" Margin="34,0,0,0" Grid.ColumnSpan="2"/>
                                 <TextBox x:Name="txtStreet" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
                                          VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Text="{Binding SelectedJob.street}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" 
@@ -115,6 +117,13 @@
                                          VerticalAlignment="Top" Width="170" Grid.Row="2" FontSize="12" Text="{Binding SelectedJob.postcode}"/>
                                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="5,3,0,0" TextWrapping="Wrap"  
                                          VerticalAlignment="Top" Width="170" Grid.Row="3" FontSize="12" Text="{Binding SelectedJob.notes}"/>
+                                <ComboBox Name="cbxStaff" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" 
+                                         VerticalAlignment="Top" Width="170" Grid.Row="4" FontSize="12" 
+                                          ItemsSource="{Binding Coordinators}"
+                                          DisplayMemberPath="coordinatorName"
+                                          SelectedValuePath="coordinatorId"
+                                          >
+                                </ComboBox>
 
                                 <TextBox x:Name="txtId" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap"  
                                          VerticalAlignment="Top" Width="170" Grid.Row="0" FontSize="12" Visibility="Collapsed" Text="{Binding SelectedContractor.contractorId}"/>

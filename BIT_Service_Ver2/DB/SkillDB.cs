@@ -94,7 +94,7 @@ namespace BIT_Service_Ver2.Model
         {
             int rowsaffected;
 
-            string query = "UPDATE skills SET SkillName = @skillName, Description = @description, Charge = @charge WHERE SkillId = @skillId";
+            string query = "UPDATE skills SET SkillName = @skillName, Description = @description, ChargePerHr = @charge WHERE SkillId = @skillId";
 
             Skill addSkill = new Skill();
             MySqlParameter[] param = new MySqlParameter[4];

@@ -4,11 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BIT_Service_Ver2.Commands;
 
 namespace BIT_Service_Ver2.Model
 {
-    class Client : IValidatableObject
+    public class Client
     {
+        private InputValidation val = new InputValidation();
+
         public int clientID { get; set; }
         public string FirstName { get; set; }
         public string SurName { get; set; }
@@ -22,13 +25,17 @@ namespace BIT_Service_Ver2.Model
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public int ValidateClient()
         {
-            if (FirstName == SurName)
+            int result = 1;
+
+            if (val.Name(FirstName, SurName) == false || val.DOB(DOB) == false || val.Email(Email) == false || val.ContactNumber(MobileNum) == false
+                || val.Address(Street, Suburb, State, Postcode) == false || val.LogOn(Username, Password) == false)
             {
-                yield return new ValidationResult("First name cannot match the last name");
+                result = 0;
             }
 
+            return result;
         }
     }
 }
