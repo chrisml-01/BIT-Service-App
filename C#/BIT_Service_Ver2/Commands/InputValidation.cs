@@ -125,11 +125,11 @@ namespace BIT_Service_Ver2.Commands
                 result = false;
                 MessageBox.Show("Username or Password can't be empty");
             }
-            else if (username.Length <= 8 || password.Length <= 8)
-            {
-                result = false;
-                MessageBox.Show("Please make sure that your username and password should atleast be 8 characters long.");
-            }
+            //else if (username.Length <= 8 || password.Length <= 8)
+            //{
+            //    result = false;
+            //    MessageBox.Show("Please make sure that your username and password should atleast be 8 characters long.");
+            //}
             else
             {
                 result = true;

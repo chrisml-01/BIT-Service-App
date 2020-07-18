@@ -1,0 +1,273 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+ :root {
+  --blue-green-color: #72a7c5;
+  --white-color: #ffffff;
+  --grey-color: #aecbdc;
+  --dark-blue-color: #17242a;
+  --light-blue-color: #31424a;
+  --light-grey-color: #C0C0C0;
+   }
+ body {
+   overflow-x: hidden;
+ }
+ 
+ #sidebar-wrapper {
+   min-height: 100vh;
+   margin-left: -15rem;
+   -webkit-transition: margin .25s ease-out;
+   -moz-transition: margin .25s ease-out;
+   -o-transition: margin .25s ease-out;
+   transition: margin .25s ease-out;
+ }
+ 
+ #sidebar-wrapper .sidebar-heading {
+   padding: 0.50rem 1.25rem;
+   font-size: 1.2rem;
+ }
+ 
+ #sidebar-wrapper .list-group {
+   width: 15rem;
+ }
+ 
+ #page-content-wrapper {
+   min-width: 100vw;
+ }
+ 
+ #wrapper.toggled #sidebar-wrapper {
+   margin-left: 0;
+ }
+ 
+ @media (min-width: 768px) {
+   #sidebar-wrapper {
+     margin-left: 0;
+   }
+ 
+   #page-content-wrapper {
+     min-width: 0;
+     width: 100%;
+   }
+ 
+   #wrapper.toggled #sidebar-wrapper {
+     margin-left: -15rem;
+   }
+ }
+ 
+ a {
+   color: var(--white-color);
+   text-decoration: none;
+   background-color: transparent;
+ }
+ a:hover{
+   text-decoration: none;
+ }
+ .navlink {
+   display: block;
+   padding: .5rem 1rem;
+ }
+ .navlink:hover {
+   text-decoration: none;
+   color: var(--blue-green-color);
+ }
+ .dropdownItem:active {
+ color: var(--white-color);
+ background-color: var(--blue-green-color);
+ text-decoration: none;
+ }
+ #logoDash{
+   display: block;
+   height: 40px;
+   margin:auto;
+ 
+ }
+ .backgroundSidebar{
+   background-color: var(--dark-blue-color);
+ }
+ 
+ .navbackground{
+   background-color: var(--blue-green-color);
+ }
+ 
+ .sidebarList{
+     border-right: 0;
+     border-left: 0;
+     border-radius: 0;
+     padding: .75rem 1.25rem;
+     margin-bottom: -1px;
+     border: 1px solid rgba(0,0,0,.125);
+     color: var(--white-color);
+ }
+ .list-group a:hover{
+   color:var(--blue-green-color);
+   text-decoration: none;
+ }
+ .btn{
+   color:var(--white-color);
+   background-color: transparent;
+   border-color: var(--blue-green-color);
+   border-radius: 30px;
+ }
+ .btn-primary:hover{
+   color: var(--white-color);
+   background-color: var(--blue-green-color);
+   border-color: transparent;
+ }
+ /* FORM */
+ .container{
+   padding: 16px;
+   background-color: var(--grey-color);
+   border: 1px var(--grey-color) solid;
+   border-radius: 10px;
+   margin:20px auto 25px auto;
+   width: 50%; 
+   box-shadow: 3px 8px 21px -5px rgba(214,214,214,1);
+ } 
+ .formHeading{
+   font-size: 18px;
+ }
+ /* .labelSmall{
+   margin:  11px;
+ } */
+ .formMore{
+   width: 100%;
+   resize: none;
+   height: 120px;
+   display: inline-block;
+   border: none;
+   background: #f1f1f1;
+   padding: 10px;
+   margin: 5px 0 22px 0;
+ }
+ .formBig{
+   width: 100%;
+   padding: 10px;
+   margin: 5px 0 22px 0;
+   display: inline-block;
+   border: none;
+   background: #f1f1f1;
+ }
+ /* input[type=text], input[type=password], input[type=date]  {
+   width: 100%;
+   padding: 15px;
+   margin: 5px 0 22px 0;
+   display: inline-block;
+   border: none;
+   background: #f1f1f1;
+ } */
+ 
+ .button {
+   width: 100%;
+   padding: 15px;
+   margin: 5px 0 22px 0;
+   display: inline-block;
+   border: none;
+   color: white;
+   background: var(--dark-blue-color); 
+ }
+ 
+ #btnApprove {
+   width: 48%;
+   padding: 15px;
+   margin: 5px 0 22px 5.5px;
+   display: inline-block;
+   border: none;
+   color: white;
+   background: var(--dark-blue-color); 
+ }
+ 
+ #btnDisapprove {
+   width: 48%;
+   padding: 15px;
+   margin: 5px 0 22px 10px;
+   display: inline-block;
+   border: none;
+   color: white;
+   background: var(--dark-blue-color); 
+ }
+ 
+ .table{
+   width: 50%;
+   margin: auto;
+   /* border: 1px solid var(--light-grey-color); */
+   text-align:center;
+ }
+ 
+ .table th {
+   background: var(--blue-green-color);
+   border: var(--blue-green-color);
+   color: var(--white-color);
+   /* width: 100%; */
+ }
+ 
+ #top-left{
+   border-top-left-radius: 10px;
+ }
+ #top-right {
+   border-top-right-radius: 10px;
+   width: 20%;
+  }
+ #con-top-left {
+  border-top-left-radius: 10px;
+  width: 30%;
+ }
+ #accept-th{ 
+   width:20%;
+ }
+ .top-right {
+   border-top-right-radius: 10px;
+   /* width: 50%; */
+ }
+ #headerTable{
+   width: 60%;
+ }
+ .table td{
+   border: 1px solid var(--light-grey-color);
+ }
+ 
+ .tableButton {
+   background: var(--dark-blue-color);
+   border: 1px solid var(--dark-blue-color);
+   border-radius: 5px;
+   width:75%;
+   margin:auto;
+   color: white;
+   
+  
+ }
+ 
+ .tableButtonjob {
+   background: var(--dark-blue-color);
+   border: 1px solid var(--dark-blue-color);
+   border-radius: 5px;
+   width:100%;
+   margin:auto;
+   color: white;
+   white-space: normal;
+ }
+ 
+ #btnSeeMore{
+   background: white;
+   border: 1px solid var(--dark-blue-color);
+   border-radius: 5px;
+   width:100%;
+   margin:auto;
+   color: var(--dark-blue-color);
+ }
+ 
+ #btnSeeMore:hover{
+   text-decoration: underline;
+ }
+ 
+ 
+ #option{
+   color: #999999;
+ }
+ 
+ /* input[type="text"]:disabled{
+   
+ } */
+ 
+ 
