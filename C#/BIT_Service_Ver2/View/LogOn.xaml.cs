@@ -75,7 +75,6 @@ namespace BIT_Service_Ver2.View
             string Username = "";
             string Password = "";
             bool isAdmin = true;
-            int result = 0;
 
             SQLHelper _DB = new SQLHelper("bitconnString");
 
@@ -93,22 +92,15 @@ namespace BIT_Service_Ver2.View
 
             if (username == Username && password == Password)
             {
-
-                if (isAdmin == false)
+                if (!isAdmin)
                 {
-                    result = 0;
+                    return 0;
                 }
-                else
-                {
-                    result = 1;
-                }
+                return 1;
             }
-            else
-            {
-                result = 2;
-            }
-            return result;
 
+            return 2;
+          
         }
     }
 }
