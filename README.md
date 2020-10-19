@@ -1,4 +1,4 @@
-# BIT-Service-App
+# BIT Service Application
 
 This project is an integrated system between Desktop and Web. 
 The Desktop application mainly deals with the record keeping of the following:
