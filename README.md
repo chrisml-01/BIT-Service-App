@@ -6,11 +6,15 @@ The Desktop application mainly deals with the record keeping of the following:
 - Contractor
 - Coordinator
 - Bookings
+![BIT-Desktop](/git-imgs/bit-desktop.gif)
 
 The Web application deals with the front end communication with the client.
 - The client can login and request a job through the website.
+![BIT-Web1](/git-imgs/bit-web-1.gif)
 - The coordinator can assign job requests to contractors.
+![BIT-Web2](/git-imgs/bit-web-2.gif)
 - The contractor can accept/reject the sent job request.
+
 
 ## Description
 The Desktop application was developed in C#.Net as the main language and utilizing the MVVM pattern. 
