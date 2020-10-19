@@ -6,6 +6,7 @@ The Desktop application mainly deals with the record keeping of the following:
 - Contractor
 - Coordinator
 - Bookings
+- Assigning job requests to contractors
 
 ![BIT-Desktop](/git-imgs/bit-desktop.gif)
 
